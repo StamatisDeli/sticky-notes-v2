@@ -58,11 +58,16 @@ export default {
         }
     },
     computed:{
+        ...mapState({
+            userId: state => state.auth.userId,
+            idToken: state => state.auth.idToken,
+        }),
         ...mapGetters (['oldNote', 'isNew']),
+        
     },
     methods:{
         returnEmptyNote() {
-            let note = {
+            return {
                 id:this.note.id,
                 date:this.note.date,
                 time:this.note.time,
@@ -70,18 +75,20 @@ export default {
                 comment:this.note.comment,
                 created:this.note.created,
             }
-            return note
         },
         handleDoneButton() {
             if (this.isNew) { this.sendToFirebase() }
             else { this.editExistingNote() }
         },
         sendToFirebase() {
+            let userId = this.userId
+            let idToken = this.idToken
+
             if (!this.note.title.length) {
                 alert ("You can't make a note without a Title!")
                 return
                 }
-            axios.post('/data.json', this.note)
+            axios.post(`users/${userId}/notes.json?auth=${idToken}`, this.note)
                 .then((response) => {
                     console.log(response);
                 })
@@ -139,6 +146,8 @@ export default {
             this.note = this.returnEmptyNote()
          }
         this.getDate()
+
+        //console.log(this.userId, this.idToken)
     }
 }
 </script>

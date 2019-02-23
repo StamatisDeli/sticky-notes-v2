@@ -101,7 +101,8 @@ const actions = {
     if (!state.idToken) {
       return;
     }
-    globalAxios.post("/users.json" + "?auth=" + state.idToken, userData)
+    //globalAxios.post("/users.json" + "?auth=" + state.idToken, userData)
+    globalAxios.put(`users/${state.userId}.json?auth=${state.idToken}`, userData)
       .then(res => console.log(res))
       .catch(error => console.log(error));
   },
@@ -109,19 +110,24 @@ const actions = {
     if (!state.idToken) {
       return;
     }
-    globalAxios.get("/users.json" + "?auth=" + state.idToken)
-      .then(res => {
-        console.log(res);
-        const data = res.data;
-        const users = [];
-        for (let key in data) {
-          const user = data[key];
-          user.id = key;
-          users.push(user);
-        }
-        console.log(users);
-        commit("storeUser", users[0]);
+    //globalAxios.get("/users.json" + "?auth=" + state.idToken)
+    globalAxios.get(`users/${state.userId}.json?auth=${state.idToken}`)
+      .then(({ data }) => {
+        commit("storeUser", data)
+        console.log(data)
       })
+      // .then(res => {
+      //   console.log(res);
+      //   const data = res.data;
+      //   const users = [];
+      //   for (let key in data) {
+      //     const user = data[key];
+      //     user.id = key;
+      //     users.push(user);
+      //   }
+      //   console.log(users);
+      //   commit("storeUser", users[0]);
+      // })
       .catch(error => console.log(error));
   }
 };

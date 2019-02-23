@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <h2 v-if="notes.length">Your Sticky notes</h2>
+    <p v-if="email">Your email address: {{ email() }}</p>
     <div class="form-check">
       <input type="checkbox" id="appNotes" class="form-check-input"
       v-model="check">
@@ -8,9 +9,9 @@
     </div>
     <section class="row text-center text-lg-left " v-if="notes.length">
       <NoteThumb
-      v-for="note in appNotes"
-      :key="note.id"
-      :note="note">
+        v-for="note in appNotes"
+        :key="note.id"
+        :note="note">
         <h4>{{ note.title }}</h4>
         <p>{{ note.date }}</p>
         <p>{{ note.id }}</p>
@@ -52,6 +53,9 @@ export default {
     }
   },
   methods: {
+    email () {
+        return this.$store.getters.user? this.$store.getters.user.email: 'No User'
+    },
     newNote () {
       this.$store.commit('SET_OLD_NOTE', null)
       this.$store.commit('SET_NEW', true)
@@ -59,6 +63,7 @@ export default {
     }
   },
   async created () {
+    await this.$store.dispatch('fetchUser')
     await this.$store.dispatch('notes/getNotes')
     // .then(result => this.notes = result.data)
     // .then(result => console.log(`got ${JSON.stringify(result)}`))
