@@ -45,7 +45,7 @@ export default {
     logIn(){
       this.$store.dispatch('login', {email: this.formData.email, password: this.formData.password})
             .then((user)=>{
-              //this.$router.replace('/hello')
+              this.$router.push('/')
             })
             .catch((e)=>{
                 alert(e.message)

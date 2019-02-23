@@ -22,8 +22,7 @@ const actions = {
   getNotes ({ commit, rootState }) {
     let userId = rootState.auth.userId
     let idToken = rootState.auth.idToken
-    //console.log(userId,idToken)
-    //return axios.get('/data.json')
+    if (!userId) return
     return axios.get(`users/${userId}/notes.json?auth=${idToken}`)
       .then(res => {
         const incoming = res.data

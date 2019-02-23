@@ -64,7 +64,7 @@ export default {
       signUp(){
           this.$store.dispatch('signup', this.formData)
               .then((user)=>{
-                //this.$router.replace('/Home')
+                this.$router.push('/')
               })
               .catch((e)=>{
                 alert('Error!: '+e.message);

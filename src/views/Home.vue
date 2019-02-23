@@ -62,7 +62,7 @@ export default {
       this.$router.push('/note')
     }
   },
-  async created () {
+  async mounted () {
     await this.$store.dispatch('fetchUser')
     await this.$store.dispatch('notes/getNotes')
     // .then(result => this.notes = result.data)

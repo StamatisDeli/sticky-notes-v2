@@ -103,8 +103,12 @@ export default {
         },
         deleteFromFirebase(){
             if(this.isNew) return
+
             const id = this.note.id
-            axios.delete('/data/'+id+"/.json")
+            const userId = this.userId
+            const idToken = this.idToken
+
+            axios.delete(`users/${userId}/notes/${id}/.json?auth=${idToken}`, this.note)
                 .then((response) => {
                     console.log(response);
                 })
@@ -119,8 +123,12 @@ export default {
                 alert ("You can't make a note without a Title!")
                 return
                 }
+                
             const id = this.note.id
-            axios.put('/data/'+id+"/.json", this.note)
+            const userId = this.userId
+            const idToken = this.idToken
+
+            axios.put(`users/${userId}/notes/${id}/.json?auth=${idToken}`, this.note)
                 .then((response) => {
                     console.log(response);
                 })
