@@ -37,7 +37,7 @@
       </div>
     </form>
     <div class="text-center small">Already have an account?
-      <a href="#">Login here</a>
+      <router-link to="login" tag="a">Login here</router-link>
     </div>
 
   </div>

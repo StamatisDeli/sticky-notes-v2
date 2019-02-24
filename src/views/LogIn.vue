@@ -22,7 +22,7 @@
       </div>
     </form>
     <div class="text-center small">You don't have an account?
-      <a href="#">Sign Up here</a>
+      <router-link to="signup" tag="a">Sign Up here</router-link>
     </div>
   </div>
 </div>
