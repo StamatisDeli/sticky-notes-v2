@@ -88,15 +88,16 @@ export default {
                 alert ("You can't make a note without a Title!")
                 return
                 }
-            axios.post(`users/${userId}/notes.json?auth=${idToken}`, this.note)
+            return axios.post(`users/${userId}/notes.json?auth=${idToken}`, this.note)
                 .then((response) => {
                     console.log(response);
                 })
                 .then(this.getNotes)
+                .then(this.$router.push('/'))
                 .catch((error) => {
                     console.log("Error: ",error);
                 })
-            this.$router.push('/')
+            
         },
         getNotes(){
             this.$store.dispatch('notes/getNotes')

@@ -1,9 +1,11 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Note from './components/Note.vue'
-//import NoteThumb from './components/NoteThumb.vue'
 import LogIn from "./views/LogIn.vue";
 import SignUp from "./views/SignUp.vue";
+import Home from "./views/Home.vue";
+
+import store from './store.js';
 
 Vue.use(Router);
 
@@ -14,13 +16,20 @@ export default new Router({
       name: "welcome",
       // component: Welcome
       component: () =>
-        import(/* webpackChunkName: "home" */ "./views/WelcomeScreen.vue")
+        import(/* webpackChunkName: "welcome" */ "./views/WelcomeScreen.vue")
     },
     {
       path: "/",
       name: "home",
-      // component: Home
-      component: () => import(/* webpackChunkName: "home" */ "./views/Home.vue")
+      component: Home,
+      // beforeEnter (to, from, next) {
+      //   if (store.state.idToken || store.state.user) {
+      //     next()
+      //   } else {
+      //     next('/login')
+      //     next()
+      //   }
+      // }
     },
     {
       path: "/about",
@@ -35,29 +44,17 @@ export default new Router({
       path: "/login",
       name: "login",
       component: LogIn
-      // component: () =>
-      // import(/* webpackChunkName: "logIn" */ './views/LogIn.vue')
     },
     {
       path: "/signup",
       name: "signup",
       component: SignUp
-      // component: () =>
-      // import(/* webpackChunkName: "logIn" */ './views/LogIn.vue')
     },
-    // {
-    //   path: "/notethumb",
-    //   name: "notethumb",
-    //   component: NoteThumb
-    //   // component: () =>
-    //   // import(/* webpackChunkName: "logIn" */ './views/LogIn.vue')
-    // },
     {
       path: "/note",
       name: "note",
       component: Note
-      // component: () =>
-      // import(/* webpackChunkName: "logIn" */ './views/LogIn.vue')
     }
   ]
 });
+

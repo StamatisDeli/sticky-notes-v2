@@ -1,5 +1,8 @@
 <template>
-    <div class="col-lg-3 col-md-4 col-xs-6 note" v-bind:style="{transform: rotateRandom}" @click="seeNote()" :note="note">
+    <div class="col-lg-3 col-md-4 col-xs-6 note" 
+    v-bind:style="{transform: rotateRandom}" 
+    @click="seeNote()" 
+    :note="note">
         <h3 :id="note.id">{{note.title}}</h3>
         <p :id="note.id">{{note.date}}</p>
     </div>

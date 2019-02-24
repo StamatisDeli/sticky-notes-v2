@@ -36,20 +36,19 @@ export default {
       return {
           submitted: false,
           formData:{
-            email: '',
-            password: ''}
+            email: 'stam@gmail.com',
+            password: 'ssssss'}
 
       }
   },
   methods: {
     logIn(){
       this.$store.dispatch('login', {email: this.formData.email, password: this.formData.password})
-            .then((user)=>{
-              this.$router.push('/')
-            })
-            .catch((e)=>{
-                alert(e.message)
-            })
+        .then(()=>{ this.$router.push('/')
+        })
+        .catch((e)=>{
+            alert(e.message)
+        })
     }
   },
 }

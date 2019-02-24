@@ -13,7 +13,14 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
+  computed:{
+    ...mapState({
+        userId: state => state.auth.userId
+    })
+  },
   mounted () {
     this.$router.push('/welcome')
     setTimeout(() => {

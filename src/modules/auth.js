@@ -1,5 +1,6 @@
 import axios from '../helpers/axios-auth'
 import globalAxios from 'axios'
+import router from '../router'
 
 const state = {
   idToken: null,
@@ -28,7 +29,7 @@ const actions = {
     }, expirationTime * 1000);
   },
   signup({ commit, dispatch }, authData) {
-    axios.post("/signupNewUser?key=AIzaSyCkR9CgnuOPeaOvqqAaZFX8BN7It7sOHmg", {
+    return axios.post("/signupNewUser?key=AIzaSyCkR9CgnuOPeaOvqqAaZFX8BN7It7sOHmg", {
         email: authData.email,
         password: authData.password,
         returnSecureToken: true
@@ -52,7 +53,7 @@ const actions = {
       .catch(error => console.log(error));
   },
   login({ commit, dispatch }, authData) {
-    axios.post("/verifyPassword?key=AIzaSyCkR9CgnuOPeaOvqqAaZFX8BN7It7sOHmg", {
+    return axios.post("/verifyPassword?key=AIzaSyCkR9CgnuOPeaOvqqAaZFX8BN7It7sOHmg", {
         email: authData.email,
         password: authData.password,
         returnSecureToken: true
@@ -66,12 +67,16 @@ const actions = {
         localStorage.setItem("token", res.data.idToken);
         localStorage.setItem("userId", res.data.localId);
         localStorage.setItem("expirationDate", expirationDate);
+
         commit("authUser", {
           token: res.data.idToken,
           userId: res.data.localId
         });
         dispatch("setLogoutTimer", res.data.expiresIn);
       })
+      // .then(()=>{
+      //   setTimeout(()=>{router.push("/")},0)
+      // })
       .catch(error => console.log(error));
   },
   tryAutoLogin({ commit }) {
@@ -101,7 +106,6 @@ const actions = {
     if (!state.idToken) {
       return;
     }
-    //globalAxios.post("/users.json" + "?auth=" + state.idToken, userData)
     globalAxios.put(`users/${state.userId}.json?auth=${state.idToken}`, userData)
       .then(res => console.log(res))
       .catch(error => console.log(error));

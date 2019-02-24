@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
-    <h2 v-if="notes.length">Your Sticky notes</h2>
-    <p v-if="email">Your email address: {{ email() }}</p>
+  <div class="container" >
+    <h2 v-if="notes.length" >Your Sticky notes</h2>
+    <p>Your email address: {{ email() }}</p>
     <div class="form-check">
       <input type="checkbox" id="appNotes" class="form-check-input"
       v-model="check">
@@ -17,7 +17,7 @@
         <p>{{ note.id }}</p>
       </NoteThumb>
     </section>
-    <section v-else-if="notes.length" class="text-muted">
+    <section v-else-if="!notes.length" class="text-muted">
       <br><br>
       <h2>No notes yet, <br> or no connection to the internet</h2>
       <p class="text-info">Click on the <kbd>+</kbd> button to add a note!</p>
@@ -34,15 +34,19 @@
 // @ is an alias to /src
 // import axios from 'axios'
 import NoteThumb from '@/components/NoteThumb.vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   data () {
     return {
-      check: false
+      check: false,
+      loading:false
     }
   },
   computed: {
+    ...mapState({
+      userId: state => state.auth.userId
+    }),
     ...mapGetters(
       'notes',
       { notes: 'notes' }
@@ -62,11 +66,19 @@ export default {
       this.$router.push('/note')
     }
   },
-  async mounted () {
+  beforeRouteEnter (to, from, next) { 
+    next(vm => { 
+      if (vm.userId){
+        next()
+      }
+      else {
+        next(vm.$router.push('login'))
+      }
+    }) 
+  },
+  async created () {
     await this.$store.dispatch('fetchUser')
     await this.$store.dispatch('notes/getNotes')
-    // .then(result => this.notes = result.data)
-    // .then(result => console.log(`got ${JSON.stringify(result)}`))
   },
   components: {
     NoteThumb
