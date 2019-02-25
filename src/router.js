@@ -9,7 +9,8 @@ import store from './store.js';
 
 Vue.use(Router);
 
-export default new Router({
+//export default new Router({
+const router = new Router ({
   routes: [
     {
       path: "/welcome",
@@ -21,15 +22,7 @@ export default new Router({
     {
       path: "/",
       name: "home",
-      component: Home,
-      // beforeEnter (to, from, next) {
-      //   if (store.state.idToken || store.state.user) {
-      //     next()
-      //   } else {
-      //     next('/login')
-      //     next()
-      //   }
-      // }
+      component: Home
     },
     {
       path: "/about",
@@ -58,3 +51,18 @@ export default new Router({
   ]
 });
 
+router.beforeResolve((to, from, next) => {
+  // If this isn't an initial page load.
+  if (to.name) {
+      // Start the route progress bar.
+      NProgress.start()
+  }
+  next()
+})
+
+router.afterEach((to, from) => {
+  // Complete the animation of the route progress bar.
+  NProgress.done()
+})
+
+export default router

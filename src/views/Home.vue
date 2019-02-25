@@ -93,15 +93,15 @@ h2 {
 }
 #plus-button {
   position: fixed;
-  bottom: 15px;
-  right: 15px;
+  bottom: 20px;
+  right: 20px;
 }
 .btn-circle {
  border-radius: 50%;
 }
 .btn-circle.btn-xl {
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   padding: 10px 16px;
   font-size: 24px;
   line-height: 1.33;

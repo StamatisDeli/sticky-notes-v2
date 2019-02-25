@@ -92,12 +92,12 @@ export default {
                 .then((response) => {
                     console.log(response);
                 })
-                .then(this.getNotes)
                 .then(this.$router.push('/'))
+                .then(this.getNotes)
                 .catch((error) => {
+                    NProgress.done()
                     console.log("Error: ",error);
                 })
-            
         },
         getNotes(){
             this.$store.dispatch('notes/getNotes')
@@ -155,6 +155,7 @@ export default {
             this.note = this.returnEmptyNote()
          }
         this.getDate()
+        console.log('NP',NProgress)
 
         //console.log(this.userId, this.idToken)
     }

@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="signup-form">
+    <div class="form">
     <form @submit.prevent="logIn">
       <div class="form-header">
         <h2>Log In</h2>

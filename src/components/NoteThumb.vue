@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     rotateRandom () {
-      const random = Math.floor(Math.random() * (3 - (-3) + 1)) + -3
+      const random = Math.floor(Math.random() * (4 - (-4) + 1)) + -4
       let deg = `rotate(${random}deg)`
       return deg
     }

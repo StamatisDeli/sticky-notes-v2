@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-  <div class="signup-form">
+  <div class="form centered">
     <form @submit.prevent="signUp">
       <div class="form-header">
         <h2>Sign Up</h2>
@@ -77,6 +77,13 @@ export default {
 
 
 <style>
-
+form {
+  width: 280px;
+  margin-right: auto;
+    margin-left: auto;
+}
+.btn-lg{
+  padding: 5px;
+}
 </style>
 

@@ -25,7 +25,7 @@ export default {
     this.$router.push('/welcome')
     setTimeout(() => {
       this.$router.go(-1)
-    }, 2000)
+    }, 2500)
   }
 }
 </script>
