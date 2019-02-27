@@ -74,9 +74,6 @@ const actions = {
         });
         dispatch("setLogoutTimer", res.data.expiresIn);
       })
-      // .then(()=>{
-      //   setTimeout(()=>{router.push("/")},0)
-      // })
       .catch(error => console.log(error));
   },
   tryAutoLogin({ commit }) {
@@ -117,7 +114,7 @@ const actions = {
     globalAxios.get(`users/${state.userId}.json?auth=${state.idToken}`)
       .then(({ data }) => {
         commit("storeUser", data)
-        console.log(data)
+        console.log('USER STORED!',data)
       })
       .catch(error => console.log(error));
   }

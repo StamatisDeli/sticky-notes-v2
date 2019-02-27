@@ -50,7 +50,7 @@ export default {
             alert(e.message)
         })
     }
-  },
+  }
 }
 </script>
 

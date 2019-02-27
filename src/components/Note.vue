@@ -105,15 +105,16 @@ export default {
         deleteFromFirebase(){
             if(this.isNew) return
 
-            const id = this.note.id
-            const userId = this.userId
-            const idToken = this.idToken
+            // const id = this.note.id
+            // const userId = this.userId
+            // const idToken = this.idToken
 
-            axios.delete(`users/${userId}/notes/${id}/.json?auth=${idToken}`, this.note)
-                .then((response) => {
-                    console.log(response);
-                })
-                .then(this.getNotes)
+            //axios.delete(`users/${userId}/notes/${id}/.json?auth=${idToken}`, this.note)
+            this.$store.dispatch('notes/deleteNote', this.note)
+                // .then((response) => {
+                //     console.log(response);
+                // })
+                // .then(this.getNotes)
                 .catch((error) => {
                     console.log("Error: ",error);
                 })
@@ -155,9 +156,7 @@ export default {
             this.note = this.returnEmptyNote()
          }
         this.getDate()
-        console.log('NP',NProgress)
-
-        //console.log(this.userId, this.idToken)
+        console.log(this.note.id)
     }
 }
 </script>

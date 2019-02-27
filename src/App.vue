@@ -26,6 +26,9 @@ export default {
     setTimeout(() => {
       this.$router.go(-1)
     }, 2500)
+  },
+  created () {
+    this.$store.dispatch('tryAutoLogin')
   }
 }
 </script>

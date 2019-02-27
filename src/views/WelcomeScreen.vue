@@ -33,7 +33,7 @@ img {
 }
 h2 {
   font-family: 'Caveat', cursive;
-  font-size: 5rem;
+  font-size: 4rem;
   color: rgb(151, 0, 0);
 }
 @media only screen and (max-width: 700px) {

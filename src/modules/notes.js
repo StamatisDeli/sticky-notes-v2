@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios";
 
 const state = {
   notes: {
@@ -6,44 +6,72 @@ const state = {
     default: null,
     required: true
   }
-}
+};
 
 const mutations = {
-  SET_NOTES (state, notes) {
-    state.notes = notes
+  SET_NOTES(state, notes) {
+    state.notes = notes;
+  },
+  UPDATE_NOTES(state, notes, id) {
+    console.log(note);
+    //let deletedItem = state.notes.splice(state.notes.indexOf(notes), 1)
+    //console.log(state.notes.indexOf(notes))
+    // const id = note.id
+    // let newArray = state.notes.filter((element) => {
+    //   return element.id !== id;
+    // })
+    // state.notes = newArray
   }
-}
+};
 
 const getters = {
   notes: state => state.notes
-}
+};
 
 const actions = {
-  getNotes ({ commit, rootState }) {
-    let userId = rootState.auth.userId
-    let idToken = rootState.auth.idToken
-    if (!userId) return
-    return axios.get(`users/${userId}/notes.json?auth=${idToken}`)
+  getNotes({ commit, rootState }) {
+    let userId = rootState.auth.userId;
+    let idToken = rootState.auth.idToken;
+    if (!userId) return;
+    return axios
+      .get(`users/${userId}/notes.json?auth=${idToken}`)
       .then(res => {
-        const incoming = res.data
-        const notes = []
+        const incoming = res.data;
+        const notes = [];
         // converting object and
         // extracting firebase ids for manipulating existing notes
         for (let key in incoming) {
-          const note = incoming[key]
-          note.id = key
+          const note = incoming[key];
+          note.id = key;
           // OR:
           // incoming[key].id=key
-          notes.push(note)
+          notes.push(note);
         }
-        commit('SET_NOTES', notes)
-        return notes
+        commit("SET_NOTES", notes);
+        return notes;
       })
-      .catch((error) => {
-        console.log('Error: ', error)
+      .catch(error => {
+        console.log("Error: ", error);
+      });
+  },
+  async deleteNote({ commit, rootState, dispatch }, note) {
+    let id = note.id;
+    let userId = rootState.auth.userId;
+    let idToken = rootState.auth.idToken;
+    console.log('ID',id)
+    //commit("UPDATE_NOTES", id);
+    await axios.delete(`users/${userId}/notes/${id}/.json?auth=${idToken}`, note)
+      .then(response => {
+        if (response.status === 200) {
+          console.log("DELETED", response);
+        }
       })
+      .catch(error => {
+        NProgress.done();
+        console.log("Error: ", error);
+      });
   }
-}
+};
 
 export default {
   namespaced: true,
@@ -51,4 +79,4 @@ export default {
   mutations,
   actions,
   getters
-}
+};

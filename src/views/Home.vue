@@ -1,5 +1,5 @@
 <template>
-  <div class="container" >
+  <div class="container fluid" >
     <h2 v-if="notes.length" >Your Sticky notes</h2>
     <p>Your email address: {{ email() }}</p>
     <div class="form-check">
@@ -9,6 +9,7 @@
     </div>
     <section class="row text-center text-lg-left " v-if="notes.length">
       <NoteThumb
+        class="col col-xl-2 col-lg-2 col-md-2 col-sm-3 col-sm-6"
         v-for="note in appNotes"
         :key="note.id"
         :note="note">
@@ -17,9 +18,9 @@
         <p>{{ note.id }}</p>
       </NoteThumb>
     </section>
+    <BaseSpinner v-if="isLoading&&!notes.length" ></BaseSpinner>
     <section v-else-if="!notes.length" class="text-muted">
       <br><br>
-      <h2>No notes yet, <br> or no connection to the internet</h2>
       <p class="text-info">Click on the <kbd>+</kbd> button to add a note!</p>
     </section>
     <button type="button" id="plus-button"
@@ -40,7 +41,7 @@ export default {
   data () {
     return {
       check: false,
-      loading:false
+      //loading:false
     }
   },
   computed: {
@@ -51,9 +52,14 @@ export default {
       'notes',
       { notes: 'notes' }
     ),
+    ...mapGetters(['isLoading']),
+    
     appNotes () {
       let reverse = this.notes.slice().reverse()
       return this.check ? reverse : this.notes
+    },
+    loading(){ 
+       return this.$store.getters.isLoading
     }
   },
   methods: {
@@ -89,7 +95,7 @@ export default {
 <style scoped>
 h2 {
   font-family: 'Caveat', cursive;
-  font-size: 5rem;
+  font-size: 3rem;
 }
 #plus-button {
   position: fixed;
@@ -106,5 +112,19 @@ h2 {
   font-size: 24px;
   line-height: 1.33;
   border-radius: 35px;
+  z-index: 5;
 }
+.form-check{
+  padding-bottom:1rem;
+}
+@media (max-width: 540px){
+.col {
+  padding-right: 0;
+}}
+@media (min-width: 576px){
+.col-sm-6 {
+    -ms-flex: 0 0 0;
+    flex: 0 0 0%;
+    max-width: 50%;
+}}
 </style>
