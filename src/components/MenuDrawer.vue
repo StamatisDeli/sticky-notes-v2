@@ -1,25 +1,25 @@
 <template>
 <div class="modal" tabindex="-1" role="dialog" @click="toggleMenu">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">User Name</h5>
-        <p>{{ email() }}</p>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p @click="logoutUser" >Log Out</p>
-        <p>User Information</p>
-        <p>About</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-logo">
+                <h3>Sticky Notes</h3>
+            </div>
+            <div class="modal-header">
+                <h5 class="modal-title">User Name</h5>
+                <p>{{ email() }}</p>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                <li class="list-group-item" @click="logoutUser" >Log Out</li>
+                <li class="list-group-item">User Information</li>
+                <router-link class="list-group-item" tag="li" to="/about">About</router-link>
+                </ul>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 </template>
 
@@ -55,12 +55,34 @@
     left: 0px!important;
     border-radius: 0px;
 }
+.modal-logo{
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: .3rem;
+    border-top-right-radius: .3rem;
+}
+.modal-dialog {
+    margin: 0;
+    max-width: 300px;
+}
 .modal{
     display: block;
     z-index: 10;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
 }
-.modal-body>p{
+.modal-header{
+    flex-direction: column;
+}
+.modal-header>h4{
+    border-bottom: 1px solid #dee2e6;
+}
+.list-group>li{
     cursor:pointer;
 }
 </style>
