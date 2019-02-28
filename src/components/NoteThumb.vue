@@ -11,7 +11,7 @@
     </div>
     
   </div>
-  <div class="delete-note" @click="deleteNote" >&times;</div>
+  <div class="delete-note" role="button" @click="deleteNote" >&times;</div>
   </div>
 </template>
 

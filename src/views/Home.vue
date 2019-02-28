@@ -1,5 +1,11 @@
 <template>
   <div class="container fluid" >
+    <div class="hamburger" v-show="!showMenu" @click="toggleMenu">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <MenuDrawer v-show="showMenu" :toggleMenu="toggleMenu"/>
     <h2 v-if="notes.length" >Your Sticky notes</h2>
     <p>Your email address: {{ email() }}</p>
     <div class="form-check">
@@ -35,13 +41,14 @@
 // @ is an alias to /src
 // import axios from 'axios'
 import NoteThumb from '@/components/NoteThumb.vue'
+import MenuDrawer from '@/components/MenuDrawer.vue'
 import { mapGetters, mapState } from 'vuex'
 
 export default {
   data () {
     return {
       check: false,
-      //loading:false
+      showMenu: false
     }
   },
   computed: {
@@ -69,6 +76,9 @@ export default {
       this.$store.commit('oldNote/SET_OLD_NOTE', null)
       this.$store.commit('booleans/SET_NEW', true)
       this.$router.push('/note')
+    },
+    toggleMenu(){
+      return this.showMenu = !this.showMenu
     }
   },
   beforeRouteEnter (to, from, next) { 
@@ -87,7 +97,8 @@ export default {
     console.log(this.$store.getters)
   },
   components: {
-    NoteThumb
+    NoteThumb,
+    MenuDrawer
   }
 }
 </script>
@@ -97,6 +108,20 @@ h2 {
   font-family: 'Caveat', cursive;
   font-size: 3rem;
   line-height: 1;
+}
+.hamburger{
+  position: absolute;
+  top: 20px;
+  left: 25px;
+  display: inline-block;
+  cursor: pointer;
+}
+.hamburger>div{
+  width: 35px;
+  height: 4px;
+  background-color: #bd2130;
+  margin: 6px 0;
+  border-radius: 2px;
 }
 #plus-button {
   position: fixed;

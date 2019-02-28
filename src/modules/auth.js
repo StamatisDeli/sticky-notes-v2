@@ -9,14 +9,14 @@ const state = {
 };
 
 const mutations = {
-  authUser(state, userData) {
+  AUTH_USER(state, userData) {
     state.idToken = userData.token;
     state.userId = userData.userId;
   },
-  storeUser(state, user) {
+  STORE_USER(state, user) {
     state.user = user;
   },
-  clearAuthData(state) {
+  CLEAR_AUTH_DATA(state) {
     state.idToken = null;
     state.userId = null;
   }
@@ -25,7 +25,7 @@ const mutations = {
 const actions = {
   setLogoutTimer({ commit }, expirationTime) {
     setTimeout(() => {
-      commit("clearAuthData");
+      commit("CLEAR_AUTH_DATA");
     }, expirationTime * 1000);
   },
   signup({ commit, dispatch }, authData) {
@@ -36,7 +36,7 @@ const actions = {
       })
       .then(res => {
         console.log(res);
-        commit("authUser", {
+        commit("AUTH_USER", {
           token: res.data.idToken,
           userId: res.data.localId
         });
@@ -68,7 +68,7 @@ const actions = {
         localStorage.setItem("userId", res.data.localId);
         localStorage.setItem("expirationDate", expirationDate);
 
-        commit("authUser", {
+        commit("AUTH_USER", {
           token: res.data.idToken,
           userId: res.data.localId
         });
@@ -87,13 +87,13 @@ const actions = {
       return;
     }
     const userId = localStorage.getItem("userId");
-    commit("authUser", {
+    commit("AUTH_USER", {
       token: token,
       userId: userId
     });
   },
   logout({ commit }) {
-    commit("clearAuthData");
+    commit("CLEAR_AUTH_DATA");
     localStorage.removeItem("expirationDate");
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
@@ -113,7 +113,7 @@ const actions = {
     }
     globalAxios.get(`users/${state.userId}.json?auth=${state.idToken}`)
       .then(({ data }) => {
-        commit("storeUser", data)
+        commit("STORE_USER", data)
         console.log('USER STORED!',data)
       })
       .catch(error => console.log(error));
