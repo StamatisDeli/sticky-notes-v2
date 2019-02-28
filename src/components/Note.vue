@@ -62,14 +62,17 @@ export default {
             userId: state => state.auth.userId,
             idToken: state => state.auth.idToken,
         }),
-        ...mapGetters (['oldNote']),
-        ...mapGetters(
-        'booleans', 
-        {isLoading:'isLoading'}
+        ...mapGetters (
+            'oldNote',
+            { oldNote: 'oldNote' }
         ),
         ...mapGetters(
-        'booleans', 
-        {isNew:'isNew'}
+            'booleans', 
+            {isLoading:'isLoading'}
+        ),
+        ...mapGetters(
+            'booleans', 
+            {isNew:'isNew'}
         )
     },
     methods:{

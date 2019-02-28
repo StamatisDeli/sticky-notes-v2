@@ -66,7 +66,7 @@ export default {
         return this.$store.getters.user? this.$store.getters.user.email: 'No User'
     },
     newNote () {
-      this.$store.commit('SET_OLD_NOTE', null)
+      this.$store.commit('oldNote/SET_OLD_NOTE', null)
       this.$store.commit('booleans/SET_NEW', true)
       this.$router.push('/note')
     }

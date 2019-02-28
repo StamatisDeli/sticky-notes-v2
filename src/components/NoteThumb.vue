@@ -21,12 +21,11 @@ export default {
     note: {
       type: Object,
       required: true
-    },
-    
+    }
   },
   methods: {
     seeNote () {
-      this.$store.commit('SET_OLD_NOTE', this.note)
+      this.$store.commit('oldNote/SET_OLD_NOTE', this.note)
       this.$store.commit('booleans/SET_NEW', false)
       this.$router.push({ name: 'note' })
     },
