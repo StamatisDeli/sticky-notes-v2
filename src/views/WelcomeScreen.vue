@@ -1,6 +1,6 @@
 <template>
     <div class="welcome" @click="goHome()">
-        <h2>organize your life with ease!!!</h2>
+        <h2>organize your life with ease</h2>
         <img src="../assets/sticky-notes-welcome-screen.svg">
         <footer class="navbar navbar-fixed-bottom">
             <p>&copy; Stamatis Deliyannis 2019</p>
@@ -33,7 +33,7 @@ img {
 }
 h2 {
   font-family: 'Caveat', cursive;
-  font-size: 4rem;
+  font-size: 3rem;
   color: rgb(151, 0, 0);
 }
 @media only screen and (max-width: 700px) {

@@ -42,8 +42,8 @@
 
 <script>
 import axios from 'axios'
-import { mapState } from 'vuex'
-import {mapGetters} from 'vuex'
+import { mapState, mapGetters } from 'vuex'
+
 export default {
     data(){
         return{
@@ -62,8 +62,15 @@ export default {
             userId: state => state.auth.userId,
             idToken: state => state.auth.idToken,
         }),
-        ...mapGetters (['oldNote', 'isNew']),
-        
+        ...mapGetters (['oldNote']),
+        ...mapGetters(
+        'booleans', 
+        {isLoading:'isLoading'}
+        ),
+        ...mapGetters(
+        'booleans', 
+        {isNew:'isNew'}
+        )
     },
     methods:{
         returnEmptyNote() {
@@ -102,15 +109,14 @@ export default {
         getNotes(){
             this.$store.dispatch('notes/getNotes')
         },
-        deleteFromFirebase(){
+        async deleteFromFirebase(){
             if(this.isNew) return
-
             // const id = this.note.id
             // const userId = this.userId
             // const idToken = this.idToken
-
             //axios.delete(`users/${userId}/notes/${id}/.json?auth=${idToken}`, this.note)
-            this.$store.dispatch('notes/deleteNote', this.note)
+            await this.$store.dispatch('notes/deleteNote', this.note)
+            await this.$store.dispatch('notes/getNotes')
                 // .then((response) => {
                 //     console.log(response);
                 // })

@@ -10,7 +10,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
   config => {
     NProgress.start();
-    store.commit("SET_LOADING", true);
+    store.commit("booleans/SET_LOADING", true);
     return config;
   },
   error => {
@@ -22,7 +22,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   response => {
     NProgress.done();
-    store.commit("SET_LOADING", false);
+    store.commit("booleans/SET_LOADING", false);
     return response;
   },
   error => {

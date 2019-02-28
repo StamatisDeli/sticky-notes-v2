@@ -27,7 +27,7 @@ export default {
   methods: {
     seeNote () {
       this.$store.commit('SET_OLD_NOTE', this.note)
-      this.$store.commit('SET_NEW', false)
+      this.$store.commit('booleans/SET_NEW', false)
       this.$router.push({ name: 'note' })
     },
     async deleteNote(){
@@ -43,10 +43,9 @@ export default {
       return deg
     },
     loading(){ 
-       return this.$store.getters.isLoading
+       return this.$store.getters['booleans/isLoading']
     }
   }
-
 }
 </script>
 

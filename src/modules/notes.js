@@ -58,8 +58,7 @@ const actions = {
     let id = note.id;
     let userId = rootState.auth.userId;
     let idToken = rootState.auth.idToken;
-    console.log('ID',id)
-    //commit("UPDATE_NOTES", id);
+
     await axios.delete(`users/${userId}/notes/${id}/.json?auth=${idToken}`, note)
       .then(response => {
         if (response.status === 200) {

@@ -52,14 +52,13 @@ export default {
       'notes',
       { notes: 'notes' }
     ),
-    ...mapGetters(['isLoading']),
-    
+    ...mapGetters(
+      'booleans', 
+      {isLoading:'isLoading'}
+      ),
     appNotes () {
       let reverse = this.notes.slice().reverse()
       return this.check ? reverse : this.notes
-    },
-    loading(){ 
-       return this.$store.getters.isLoading
     }
   },
   methods: {
@@ -68,7 +67,7 @@ export default {
     },
     newNote () {
       this.$store.commit('SET_OLD_NOTE', null)
-      this.$store.commit('SET_NEW', true)
+      this.$store.commit('booleans/SET_NEW', true)
       this.$router.push('/note')
     }
   },
@@ -85,6 +84,7 @@ export default {
   async created () {
     await this.$store.dispatch('fetchUser')
     await this.$store.dispatch('notes/getNotes')
+    console.log(this.$store.getters)
   },
   components: {
     NoteThumb
@@ -96,6 +96,7 @@ export default {
 h2 {
   font-family: 'Caveat', cursive;
   font-size: 3rem;
+  line-height: 1;
 }
 #plus-button {
   position: fixed;
