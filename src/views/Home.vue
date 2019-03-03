@@ -1,13 +1,7 @@
 <template>
   <div class="container fluid" >
-    <div class="hamburger" v-show="!showMenu" @click="toggleMenu">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <MenuDrawer v-show="showMenu" :toggleMenu="toggleMenu"/>
     <h2 v-if="notes.length" >Your Sticky notes</h2>
-    <p>Your email address: {{ email() }}</p>
+    <p> {{ name() }}</p>
     <div class="form-check">
       <input type="checkbox" id="appNotes" class="form-check-input"
       v-model="check">
@@ -24,7 +18,9 @@
         <p>{{ note.id }}</p>
       </NoteThumb>
     </section>
-    <BaseSpinner v-if="isLoading&&!notes.length" ></BaseSpinner>
+<!-- SPINNER -->
+    <BaseSpinner v-if="isLoading&&!notes.length&&name" ></BaseSpinner>
+
     <section v-else-if="!notes.length" class="text-muted">
       <br><br>
       <p class="text-info">Click on the <kbd>+</kbd> button to add a note!</p>
@@ -41,19 +37,19 @@
 // @ is an alias to /src
 // import axios from 'axios'
 import NoteThumb from '@/components/NoteThumb.vue'
-import MenuDrawer from '@/components/MenuDrawer.vue'
 import { mapGetters, mapState } from 'vuex'
 
 export default {
   data () {
     return {
       check: false,
-      showMenu: false
+      //showMenu: false
     }
   },
   computed: {
     ...mapState({
-      userId: state => state.auth.userId
+      userId: state => state.auth.userId,
+      user: state => state.auth.user
     }),
     ...mapGetters(
       'notes',
@@ -66,24 +62,24 @@ export default {
     appNotes () {
       let reverse = this.notes.slice().reverse()
       return this.check ? reverse : this.notes
+    },
+    auth () {
+        return this.$store.getters.isAuthenticated
     }
   },
   methods: {
-    email () {
-        return this.$store.getters.user? this.$store.getters.user.email: 'No User'
+    name () {
+        return this.$store.getters.user? this.$store.getters.user.name: 'No User'
     },
     newNote () {
       this.$store.commit('oldNote/SET_OLD_NOTE', null)
       this.$store.commit('booleans/SET_NEW', true)
       this.$router.push('/note')
-    },
-    toggleMenu(){
-      return this.showMenu = !this.showMenu
     }
   },
   beforeRouteEnter (to, from, next) { 
     next(vm => { 
-      if (vm.userId){
+      if (vm.auth&&vm.user){
         next()
       }
       else {
@@ -91,14 +87,15 @@ export default {
       }
     }) 
   },
+  updated () {
+    if(!this.user) this.$router.push('login')
+  },
   async created () {
     await this.$store.dispatch('fetchUser')
     await this.$store.dispatch('notes/getNotes')
-    console.log(this.$store.getters)
   },
   components: {
-    NoteThumb,
-    MenuDrawer
+    NoteThumb
   }
 }
 </script>
@@ -108,20 +105,6 @@ h2 {
   font-family: 'Caveat', cursive;
   font-size: 3rem;
   line-height: 1;
-}
-.hamburger{
-  position: absolute;
-  top: 20px;
-  left: 25px;
-  display: inline-block;
-  cursor: pointer;
-}
-.hamburger>div{
-  width: 35px;
-  height: 4px;
-  background-color: #bd2130;
-  margin: 6px 0;
-  border-radius: 2px;
 }
 #plus-button {
   position: fixed;

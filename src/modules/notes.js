@@ -3,7 +3,7 @@ import axios from "axios";
 const state = {
   notes: {
     type: Object,
-    default: null,
+    default: {},
     required: true
   }
 };
@@ -11,16 +11,6 @@ const state = {
 const mutations = {
   SET_NOTES(state, notes) {
     state.notes = notes;
-  },
-  UPDATE_NOTES(state, notes, id) {
-    console.log(note);
-    //let deletedItem = state.notes.splice(state.notes.indexOf(notes), 1)
-    //console.log(state.notes.indexOf(notes))
-    // const id = note.id
-    // let newArray = state.notes.filter((element) => {
-    //   return element.id !== id;
-    // })
-    // state.notes = newArray
   }
 };
 

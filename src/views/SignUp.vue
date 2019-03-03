@@ -5,6 +5,12 @@
       <div class="form-header">
         <h2>Sign Up</h2>
       </div>
+       <div class="form-group">
+        <label>User Name</label>
+        <input type="name" class="form-control" autocomplete="new-name"
+        name="name" required="required"
+        id="name" v-model="formData.name">
+      </div>
       <div class="form-group">
         <label>Email Address</label>
         <input type="email" class="form-control" autocomplete="new-email"
@@ -24,7 +30,7 @@
         
         id="confirm-password" v-model="formData.confirmPassword">
       </div>
-      <div class="form-group">
+      <div class="form-group small">
         <label class="checkbox-inline">
           <!-- TODO: required="required" -->
           <input type="checkbox" > I accept the
@@ -55,32 +61,40 @@ export default {
   data () {
       return {
         formData:{
-          email: '',
-          password: ''
+          name: 'Doe',
+          email: 'doe@gmail.com',
+          password: 'dddddd'
         }
       }
     },
-    methods:{
-      signUp(){
-          this.$store.dispatch('signup', this.formData)
-              .then((user)=>{
-                this.$router.push('/')
-              })
-              .catch((e)=>{
-                alert('Error!: '+e.message);
-              })
-      }
-
+  methods:{
+    signUp(){
+        return this.$store.dispatch('signup', this.formData)
+          .then((res)=>{
+            return this.$router.push('/')
+          })
+          .catch((e)=>{
+            console.log('Error Signin Up!: '+e.message);
+          })
     }
+  }
 }
 </script>
 
 
-<style>
+<style scoped>
 form {
   width: 280px;
   margin-right: auto;
-    margin-left: auto;
+  margin-left: auto;
+}
+h2 {
+  border-bottom: 1px solid #81888d;
+  margin-bottom: 0.5rem;
+  width: auto;
+}
+.form-group {
+    margin-bottom: 0.5rem;
 }
 .btn-lg{
   padding: 5px;

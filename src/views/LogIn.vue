@@ -37,17 +37,18 @@ export default {
           submitted: false,
           formData:{
             email: 'stam@gmail.com',
-            password: 'ssssss'}
-
+            password: 'ssssss'
+          }
       }
   },
   methods: {
     logIn(){
       this.$store.dispatch('login', {email: this.formData.email, password: this.formData.password})
-        .then(()=>{ this.$router.push('/')
+        .then(()=>{ 
+          this.$router.push('/')
         })
         .catch((e)=>{
-            alert(e.message)
+          alert('Error Logging In!: ', e.message)
         })
     }
   }
@@ -55,5 +56,9 @@ export default {
 </script>
 
 <style >
-
+form {
+  width: 280px;
+  margin-right: auto;
+  margin-left: auto;
+}
 </style>

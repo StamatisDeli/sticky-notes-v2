@@ -1,6 +1,14 @@
 <template>
   <div id="app">
+    {{ userId }}
     <div class="overlay"></div>
+    <div class="hamburger" v-show="!showMenu" @click="toggleMenu">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <MenuDrawer v-show="showMenu" :toggleMenu="toggleMenu" :key="auth"/>
+
     <div id="nav">
       <!-- <router-link to="/welcome">Welcome Screen</router-link> | -->
       <router-link to="/">Home</router-link> |
@@ -14,12 +22,21 @@
 
 <script>
 import {mapState} from 'vuex'
-
+import MenuDrawer from '@/components/MenuDrawer.vue'
 export default {
+  data () {
+      return {
+        showMenu: false
+      }
+  },
   computed:{
     ...mapState({
-        userId: state => state.auth.userId
-    })
+        userId: state => state.auth.userId,
+        user: state => state.auth.user
+    }),
+    auth () {
+      return this.$store.getters.isAuthenticated
+    }
   },
   mounted () {
     this.$router.push('/welcome')
@@ -29,6 +46,15 @@ export default {
   },
   created () {
     this.$store.dispatch('tryAutoLogin')
+    console.log(this.auth)
+  },
+  methods: {
+    toggleMenu(){
+      return this.showMenu = !this.showMenu
+    }
+  },
+  components: {
+    MenuDrawer
   }
 }
 </script>
@@ -75,6 +101,20 @@ body{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.hamburger{
+  position: absolute;
+  top: 20px;
+  left: 25px;
+  display: inline-block;
+  cursor: pointer;
+}
+.hamburger>div{
+  width: 35px;
+  height: 4px;
+  background-color: #bd2130;
+  margin: 6px 0;
+  border-radius: 2px;
 }
 #nav {
   padding: 20px;

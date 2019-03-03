@@ -5,7 +5,10 @@ import router from '../router'
 const state = {
   idToken: null,
   userId: null,
-  user: null
+  user: {
+    type: Object,
+    default: {}
+  }
 };
 
 const mutations = {
@@ -17,8 +20,9 @@ const mutations = {
     state.user = user;
   },
   CLEAR_AUTH_DATA(state) {
-    state.idToken = null;
-    state.userId = null;
+    state.idToken = null
+    state.userId = null
+    state.user = {}
   }
 };
 
@@ -35,20 +39,24 @@ const actions = {
         returnSecureToken: true
       })
       .then(res => {
-        console.log(res);
+        console.log(res)
+
         commit("AUTH_USER", {
           token: res.data.idToken,
           userId: res.data.localId
         });
+
         const now = new Date();
         const expirationDate = new Date(
           now.getTime() + res.data.expiresIn * 1000
         );
-        localStorage.setItem("token", res.data.idToken);
-        localStorage.setItem("userId", res.data.localId);
-        localStorage.setItem("expirationDate", expirationDate);
-        dispatch("storeUser", authData);
-        dispatch("setLogoutTimer", res.data.expiresIn);
+
+        localStorage.setItem("token", res.data.idToken)
+        localStorage.setItem("userId", res.data.localId)
+        localStorage.setItem("expirationDate", expirationDate)
+
+        dispatch("setLogoutTimer", res.data.expiresIn)
+        return dispatch("storeUserDB", authData)
       })
       .catch(error => console.log(error));
   },
@@ -78,15 +86,20 @@ const actions = {
   },
   tryAutoLogin({ commit }) {
     const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
+
     if (!token) {
       return;
     }
+
     const expirationDate = localStorage.getItem("expirationDate");
     const now = new Date();
+
     if (now >= expirationDate) {
+      commit("CLEAR_AUTH_DATA")
       return;
     }
-    const userId = localStorage.getItem("userId");
+    
     commit("AUTH_USER", {
       token: token,
       userId: userId
@@ -99,22 +112,25 @@ const actions = {
     localStorage.removeItem("userId");
     router.replace("/signin");
   },
-  storeUser({ commit, state }, userData) {
+  storeUserDB({ commit, state }, userData) {
     if (!state.idToken) {
       return;
     }
-    globalAxios.put(`users/${state.userId}.json?auth=${state.idToken}`, userData)
-      .then(res => console.log(res))
-      .catch(error => console.log(error));
+    return globalAxios.put(`users/${state.userId}.json?auth=${state.idToken}`, userData)
+      .then(res =>{ 
+          console.log('STORED USER TO DB', res)
+        }
+      )
+      .catch(error => console.log(error))
   },
   fetchUser({ commit, state }) {
     if (!state.idToken) {
       return;
     }
-    globalAxios.get(`users/${state.userId}.json?auth=${state.idToken}`)
+    return globalAxios.get(`users/${state.userId}.json?auth=${state.idToken}`)
       .then(({ data }) => {
         commit("STORE_USER", data)
-        console.log('USER STORED!',data)
+        console.log('USER IN STORE!', data)
       })
       .catch(error => console.log(error));
   }

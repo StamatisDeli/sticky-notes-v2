@@ -6,7 +6,7 @@
                 <h3>Sticky Notes</h3>
             </div>
             <div class="modal-header">
-                <h5 class="modal-title">User Name</h5>
+                <h5 class="modal-title"> {{ name() }} </h5>
                 <p>{{ email() }}</p>
             </div>
             <div class="modal-body">
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
     export default {
     name:'MenuDrawer',
     props:{
@@ -31,12 +32,19 @@
             type: Function
         }
     },
+    computed:{
+
+    },
     methods: {
+        name() {
+            return this.$store.getters.user? this.$store.getters.user.name: 'No User'
+        },
         email() {
-            return this.$store.getters.user? this.$store.getters.user.email: 'No User'
+            return this.$store.getters.user? this.$store.getters.user.email: 'No User email'
         },
         logoutUser() {
         this.$store.dispatch('logout')
+        this.$store.commit('notes/SET_NOTES', {})
         this.$router.push('/')
       }
     },
