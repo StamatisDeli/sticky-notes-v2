@@ -1,21 +1,25 @@
 <template>
   <div id="app">
     <div class="overlay"></div>
+    <nav>
     <div class="hamburger" v-show="!showMenu" @click="toggleMenu">
       <div></div>
       <div></div>
       <div></div>
     </div>
+    
     <img class="logo-small-app" src="@/assets/logo-small.svg" alt="logo">
 
-    <MenuDrawer v-show="showMenu" :toggleMenu="toggleMenu" :key="auth"/>
+    <div class="user-container"><p> {{ name() }} </p></div>
 
-    <div id="nav">
+    <MenuDrawer v-show="showMenu" :toggleMenu="toggleMenu" :key="auth"/>
+</nav>
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/signup">SignUp</router-link> |
       <router-link to="/login">Login</router-link>
-    </div>
+    </div> -->
     <router-view/>
   </div>
 </template>
@@ -51,7 +55,10 @@ export default {
   methods: {
     toggleMenu(){
       return this.showMenu = !this.showMenu
-    }
+    },
+    name () {
+      return this.user? this.user.name: 'No User'
+    },
   },
   components: {
     MenuDrawer
@@ -120,8 +127,19 @@ body{
   position: absolute;
   top: 10px;
   left: 80px;
-  width:7%;
+  width:80px;
   cursor: pointer;
+}
+.user-container{
+  position: absolute;
+  padding: 2px 8px 2px 8px;
+  top: 20px;
+  right: 25px;
+
+  height: auto;
+  background-color: #bd2130;
+  border-radius: 15px;
+  color:thistle;
 }
 #nav {
   padding: 20px;

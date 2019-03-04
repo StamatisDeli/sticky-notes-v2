@@ -1,7 +1,6 @@
 <template>
   <div class="container fluid" >
     <h2 v-if="notes.length" >your notes</h2>
-    <p> {{ name() }}</p>
     <div class="form-check">
       <input type="checkbox" id="appNotes" class="form-check-input"
       v-model="check">
