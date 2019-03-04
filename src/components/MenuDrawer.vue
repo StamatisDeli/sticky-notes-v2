@@ -2,8 +2,8 @@
 <div class="modal" tabindex="-1" role="dialog" @click="toggleMenu">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-logo">
-                <h3>Sticky Notes</h3>
+            <div class="modal-logo-container">
+                <img class="logo-small" @click="goHome"  src="@/assets/logo-small.svg" alt="logo and home button" role="navigation">
             </div>
             <div class="modal-header">
                 <h5 class="modal-title"> {{ name() }} </h5>
@@ -11,9 +11,9 @@
             </div>
             <div class="modal-body">
                 <ul class="list-group">
-                <li class="list-group-item" @click="logoutUser" >Log Out</li>
                 <li class="list-group-item">User Information</li>
                 <router-link class="list-group-item" tag="li" to="/about">About</router-link>
+                <li class="list-group-item" @click="logoutUser" >Log Out</li>
                 </ul>
             </div>
             <div class="modal-footer">
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+import {mapState} from 'vuex'
     export default {
     name:'MenuDrawer',
     props:{
@@ -33,23 +33,30 @@ import {mapMutations} from 'vuex'
         }
     },
     computed:{
-
+        ...mapState({
+            userId: state => state.auth.userId,
+            user: state => state.auth.user
+        })
     },
     methods: {
         name() {
-            return this.$store.getters.user? this.$store.getters.user.name: 'No User'
+            return this.user.name? this.user.name : 'No User'
         },
         email() {
-            return this.$store.getters.user? this.$store.getters.user.email: 'No User email'
+            return this.user.email? this.user.email: 'No User email'
         },
         logoutUser() {
-        this.$store.dispatch('logout')
-        this.$store.commit('notes/SET_NOTES', {})
-        this.$router.push('/')
-      }
+            this.$store.dispatch('auth/logout')
+            this.$store.commit('notes/SET_NOTES', {})
+            this.$router.push('/')
+        },
+        goHome(){
+            this.$router.push('/')
+        }
     },
     created(){
-        console.log('Menu',this.$store.getters.user)
+        console.log('Menu',this.$store.getters['auth/user'])
+        console.log(this.name())
     }
     }
 </script>
@@ -63,7 +70,7 @@ import {mapMutations} from 'vuex'
     left: 0px!important;
     border-radius: 0px;
 }
-.modal-logo{
+.modal-logo-container{
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: start;
@@ -74,6 +81,10 @@ import {mapMutations} from 'vuex'
     border-bottom: 1px solid #dee2e6;
     border-top-left-radius: .3rem;
     border-top-right-radius: .3rem;
+}
+.logo-small{
+    width:50%;
+    cursor: pointer;
 }
 .modal-dialog {
     margin: 0;

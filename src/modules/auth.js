@@ -1,6 +1,6 @@
-import axios from '../helpers/axios-auth'
-import globalAxios from 'axios'
-import router from '../router'
+import axios from "../helpers/axios-auth";
+import globalAxios from "axios";
+import router from "../router";
 
 const state = {
   idToken: null,
@@ -20,9 +20,9 @@ const mutations = {
     state.user = user;
   },
   CLEAR_AUTH_DATA(state) {
-    state.idToken = null
-    state.userId = null
-    state.user = {}
+    state.idToken = null;
+    state.userId = null;
+    state.user = {};
   }
 };
 
@@ -33,13 +33,14 @@ const actions = {
     }, expirationTime * 1000);
   },
   signup({ commit, dispatch }, authData) {
-    return axios.post("/signupNewUser?key=AIzaSyCkR9CgnuOPeaOvqqAaZFX8BN7It7sOHmg", {
+    return axios
+      .post("/signupNewUser?key=AIzaSyCkR9CgnuOPeaOvqqAaZFX8BN7It7sOHmg", {
         email: authData.email,
         password: authData.password,
         returnSecureToken: true
       })
       .then(res => {
-        console.log(res)
+        console.log(res);
 
         commit("AUTH_USER", {
           token: res.data.idToken,
@@ -51,17 +52,18 @@ const actions = {
           now.getTime() + res.data.expiresIn * 1000
         );
 
-        localStorage.setItem("token", res.data.idToken)
-        localStorage.setItem("userId", res.data.localId)
-        localStorage.setItem("expirationDate", expirationDate)
+        localStorage.setItem("token", res.data.idToken);
+        localStorage.setItem("userId", res.data.localId);
+        localStorage.setItem("expirationDate", expirationDate);
 
-        dispatch("setLogoutTimer", res.data.expiresIn)
-        return dispatch("storeUserDB", authData)
+        dispatch("setLogoutTimer", res.data.expiresIn);
+        return dispatch("storeUserDB", authData);
       })
       .catch(error => console.log(error));
   },
   login({ commit, dispatch }, authData) {
-    return axios.post("/verifyPassword?key=AIzaSyCkR9CgnuOPeaOvqqAaZFX8BN7It7sOHmg", {
+    return axios
+      .post("/verifyPassword?key=AIzaSyCkR9CgnuOPeaOvqqAaZFX8BN7It7sOHmg", {
         email: authData.email,
         password: authData.password,
         returnSecureToken: true
@@ -96,10 +98,10 @@ const actions = {
     const now = new Date();
 
     if (now >= expirationDate) {
-      commit("CLEAR_AUTH_DATA")
+      commit("CLEAR_AUTH_DATA");
       return;
     }
-    
+
     commit("AUTH_USER", {
       token: token,
       userId: userId
@@ -116,21 +118,22 @@ const actions = {
     if (!state.idToken) {
       return;
     }
-    return globalAxios.put(`users/${state.userId}.json?auth=${state.idToken}`, userData)
-      .then(res =>{ 
-          console.log('STORED USER TO DB', res)
-        }
-      )
-      .catch(error => console.log(error))
+    return globalAxios
+      .put(`users/${state.userId}.json?auth=${state.idToken}`, userData)
+      .then(res => {
+        console.log("STORED USER TO DB", res);
+      })
+      .catch(error => console.log(error));
   },
   fetchUser({ commit, state }) {
     if (!state.idToken) {
       return;
     }
-    return globalAxios.get(`users/${state.userId}.json?auth=${state.idToken}`)
+    return globalAxios
+      .get(`users/${state.userId}.json?auth=${state.idToken}`)
       .then(({ data }) => {
-        commit("STORE_USER", data)
-        console.log('USER IN STORE!', data)
+        commit("STORE_USER", data);
+        console.log("USER IN STORE!", data);
       })
       .catch(error => console.log(error));
   }
@@ -146,6 +149,7 @@ const getters = {
 };
 
 export default {
+  namespaced: true,
   state,
   mutations,
   actions,

@@ -51,15 +51,17 @@
     <button class="btn btn-lg btn-google custom" type="submit">
     <i class="fab fa-google mr-2"></i>Log in with Google</button>
   </div>
+  <BaseSuccess v-show="showSuccess" />
 </div>
 </template>
 
 <script>
 import firebase from 'firebase'
 export default {
-  name:'SignUp',
+  name:'signUp',
   data () {
       return {
+        showSuccess: false,
         formData:{
           name: 'Doe',
           email: 'doe@gmail.com',
@@ -69,9 +71,13 @@ export default {
     },
   methods:{
     signUp(){
-        return this.$store.dispatch('signup', this.formData)
+        return this.$store.dispatch('auth/signup', this.formData)
           .then((res)=>{
-            return this.$router.push('/')
+            this.showSuccess = true
+            setTimeout(()=>{
+              this.showSuccess = false
+              return this.$router.push('/')
+            }, 1500)
           })
           .catch((e)=>{
             console.log('Error Signin Up!: '+e.message);
@@ -83,21 +89,6 @@ export default {
 
 
 <style scoped>
-form {
-  width: 280px;
-  margin-right: auto;
-  margin-left: auto;
-}
-h2 {
-  border-bottom: 1px solid #81888d;
-  margin-bottom: 0.5rem;
-  width: auto;
-}
-.form-group {
-    margin-bottom: 0.5rem;
-}
-.btn-lg{
-  padding: 5px;
-}
+
 </style>
 

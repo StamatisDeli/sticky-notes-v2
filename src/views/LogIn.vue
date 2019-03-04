@@ -1,6 +1,6 @@
 <template>
-<div>
-    <div class="form">
+<div class="container">
+    <div class="form centered">
     <form @submit.prevent="logIn">
       <div class="form-header">
         <h2>Log In</h2>
@@ -25,6 +25,7 @@
       <router-link to="signup" tag="a">Sign Up here</router-link>
     </div>
   </div>
+  <BaseSuccess v-show="showSuccess" />
 </div>
 </template>
 
@@ -34,19 +35,26 @@ export default {
   name:'LogIn',
   data () {
       return {
-          submitted: false,
-          formData:{
-            email: 'stam@gmail.com',
-            password: 'ssssss'
-          }
+        showSuccess: false,
+        formData:{
+          email: 'stam@gmail.com',
+          password: 'ssssss'
+        }
       }
   },
   methods: {
     logIn(){
-      this.$store.dispatch('login', {email: this.formData.email, password: this.formData.password})
-        .then(()=>{ 
-          this.$router.push('/')
+      return this.$store.dispatch('auth/login', {email: this.formData.email, password: this.formData.password})
+        .then((res)=>{ 
+          this.showSuccess = true
+          setTimeout(()=>{
+            this.showSuccess = false
+            return this.$router.push('/')
+            }, 1500)
         })
+        // .then(()=>{ 
+        //   return this.$router.push('/')
+        // })
         .catch((e)=>{
           alert('Error Logging In!: ', e.message)
         })
@@ -55,10 +63,6 @@ export default {
 }
 </script>
 
-<style >
-form {
-  width: 280px;
-  margin-right: auto;
-  margin-left: auto;
-}
+<style scoped>
+
 </style>

@@ -6,8 +6,11 @@ import axios from 'axios'
 import firebase from 'firebase'
 import firebaseConfig from "./helpers/firebaseConfig"
 import BaseSpinner from '@/components/BaseSpinner'
+import BaseSuccess from '@/components/BaseSuccess'
 
 Vue.component('BaseSpinner', BaseSpinner)
+Vue.component('BaseSuccess', BaseSuccess)
+
 Vue.config.productionTip = false
 
 axios.defaults.baseURL = "https://sticky-notes-v2.firebaseio.com"

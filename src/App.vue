@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    {{ userId }}
     <div class="overlay"></div>
     <div class="hamburger" v-show="!showMenu" @click="toggleMenu">
       <div></div>
       <div></div>
       <div></div>
     </div>
+    <img class="logo-small-app" src="@/assets/logo-small.svg" alt="logo">
+
     <MenuDrawer v-show="showMenu" :toggleMenu="toggleMenu" :key="auth"/>
 
     <div id="nav">
-      <!-- <router-link to="/welcome">Welcome Screen</router-link> | -->
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/signup">SignUp</router-link> |
@@ -35,17 +35,17 @@ export default {
         user: state => state.auth.user
     }),
     auth () {
-      return this.$store.getters.isAuthenticated
+      return this.$store.getters['auth/isAuthenticated']
     }
   },
-  mounted () {
+  beforeCreate () {
     this.$router.push('/welcome')
     setTimeout(() => {
       this.$router.go(-1)
     }, 2500)
   },
   created () {
-    this.$store.dispatch('tryAutoLogin')
+    this.$store.dispatch('auth/tryAutoLogin')
     console.log(this.auth)
   },
   methods: {
@@ -116,6 +116,13 @@ body{
   margin: 6px 0;
   border-radius: 2px;
 }
+.logo-small-app{
+  position: absolute;
+  top: 10px;
+  left: 80px;
+  width:7%;
+  cursor: pointer;
+}
 #nav {
   padding: 20px;
 }
@@ -127,5 +134,21 @@ body{
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+.form {
+  width: 280px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.form h2 {
+  border-bottom: 1px solid #81888d;
+  margin-bottom: 0.5rem;
+  width: auto;
+}
+.form-group {
+    margin-bottom: 0.5rem;
+}
+.btn-lg{
+  padding: 5px;
 }
 </style>

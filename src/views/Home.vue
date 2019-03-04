@@ -1,6 +1,6 @@
 <template>
   <div class="container fluid" >
-    <h2 v-if="notes.length" >Your Sticky notes</h2>
+    <h2 v-if="notes.length" >your notes</h2>
     <p> {{ name() }}</p>
     <div class="form-check">
       <input type="checkbox" id="appNotes" class="form-check-input"
@@ -49,27 +49,24 @@ export default {
   computed: {
     ...mapState({
       userId: state => state.auth.userId,
-      user: state => state.auth.user
+      user: state => state.auth.user,
+      isLoading: state => state.booleans.isLoading
     }),
     ...mapGetters(
       'notes',
       { notes: 'notes' }
     ),
-    ...mapGetters(
-      'booleans', 
-      {isLoading:'isLoading'}
-      ),
     appNotes () {
       let reverse = this.notes.slice().reverse()
       return this.check ? reverse : this.notes
     },
     auth () {
-        return this.$store.getters.isAuthenticated
+        return this.$store.getters['auth/isAuthenticated']
     }
   },
   methods: {
     name () {
-        return this.$store.getters.user? this.$store.getters.user.name: 'No User'
+        return this.user? this.user.name: 'No User'
     },
     newNote () {
       this.$store.commit('oldNote/SET_OLD_NOTE', null)
@@ -91,7 +88,7 @@ export default {
     if(!this.user) this.$router.push('login')
   },
   async created () {
-    await this.$store.dispatch('fetchUser')
+    await this.$store.dispatch('auth/fetchUser')
     await this.$store.dispatch('notes/getNotes')
   },
   components: {
