@@ -66,7 +66,17 @@ const actions = {
         dispatch("setLogoutTimer", res.data.expiresIn);
         return dispatch("storeUserDB", authData);
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        if(error.response.data.error.message==='INVALID_PASSWORD'){
+          commit("SET_MESSAGE", "Invalid Password")
+          console.log('Wrong Password ')
+          }
+        if(error.response.data.error.message==='EMAIL_EXISTS'){
+          commit("SET_MESSAGE", "Email already exists")
+          console.log("Email already exists")
+          }
+        console.log('Error Logging In:', error.response.data.error.message)
+      })
   },
   login({ commit, dispatch }, authData) {
     return axios
@@ -104,7 +114,7 @@ const actions = {
           console.log('Email does not exist')
           }
         console.log('Error Logging In:', error.response.data.error.message)
-      });
+      })
   },
   tryAutoLogin({ commit }) {
     const token = localStorage.getItem("token");

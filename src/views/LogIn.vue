@@ -14,7 +14,7 @@
       </div>
       <div class="form-group">
         <label>Password</label>
-        <p v-show="wrongPassword">{{ wrongPassword() }}</p>
+        <p>{{ wrongPassword() }}</p>
         <input type="password" class="form-control" autocomplete="password" minlength=6 maxlength=10
         name="password" required="required"
         id="password" v-model="formData.password">
@@ -32,28 +32,16 @@
 </template>
 
 <script>
-//import firebase from 'firebase'
 export default {
   name:'LogIn',
   data () {
       return {
-        // wrongEmail:{
-        //   type: Boolean,
-        //   default: false
-        // },
-        // wrongPassword:{
-        //   type: Boolean,
-        //   default: false
-        // },
         showSuccess: false,
         formData:{
           email: 'stam@gmail.com',
           password: 'ssssss'
         }
       }
-  },
-  computed:{
-
   },
   methods: {
     logIn(){

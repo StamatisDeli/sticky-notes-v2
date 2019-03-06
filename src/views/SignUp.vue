@@ -30,12 +30,14 @@
       </div>
       <div class="form-group">
         <label>Email Address</label>
+        <p >{{ wrongEmail() }}</p>
         <input type="email" class="form-control" autocomplete="new-email"
         name="email" required="required"
         id="email" v-model="formData.email">
       </div>
       <div class="form-group">
         <label>Password</label>
+        
         <input type="password" class="form-control" autocomplete="new-password" minlength=6 maxlength=10
         name="password" required="required"
         id="password" v-model="formData.password">
@@ -91,6 +93,7 @@ export default {
     signUp(){
         return this.$store.dispatch('auth/signup', this.formData)
           .then((res)=>{
+            if(!this.$store.getters['auth/isAuthenticated'])return
             this.showSuccess = true
             setTimeout(()=>{
               this.showSuccess = false
@@ -100,6 +103,16 @@ export default {
           .catch((e)=>{
             console.log('Error Signin Up!: '+e.message);
           })
+    },
+    wrongEmail(){
+      let msg = this.$store.getters['auth/responseMsg']
+      if(!msg.length) return null
+      if(msg==="Email already exists") return msg
+    },
+    wrongPassword(){
+      let msg = this.$store.getters['auth/responseMsg']
+      if(!msg.length) return null
+      if(msg==="Invalid Password") return msg
     }
   }
 }
