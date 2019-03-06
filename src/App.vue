@@ -2,24 +2,22 @@
   <div id="app">
     <div class="overlay"></div>
     <nav>
-    <div class="hamburger" v-show="!showMenu" @click="toggleMenu">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    
-    <img class="logo-small-app" src="@/assets/logo-small.svg" alt="logo">
+      <div class="hamburger" v-show="!showMenu" @click="toggleMenu">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      
+      <img class="logo-small-app" src="@/assets/logo-small.svg" alt="logo">
 
-    <div class="user-container"><p> {{ name() }} </p></div>
+      <div class="user-container">
+        <p v-show="auth" > {{ name() }} </p>
+        <router-link to="/login" tag="p" v-show="!auth">Login</router-link>
+      </div>
 
-    <MenuDrawer v-show="showMenu" :toggleMenu="toggleMenu" :key="auth"/>
-</nav>
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/signup">SignUp</router-link> |
-      <router-link to="/login">Login</router-link>
-    </div> -->
+      <MenuDrawer v-show="showMenu" :toggleMenu="toggleMenu" :key="auth" :nameTo="name" :emailTo="email"/>
+    </nav>
+
     <router-view/>
   </div>
 </template>
@@ -27,6 +25,7 @@
 <script>
 import {mapState} from 'vuex'
 import MenuDrawer from '@/components/MenuDrawer.vue'
+import WelcomeScreen from '@/views/WelcomeScreen.vue'
 export default {
   data () {
       return {
@@ -42,23 +41,26 @@ export default {
       return this.$store.getters['auth/isAuthenticated']
     }
   },
-  beforeCreate () {
-    this.$router.push('/welcome')
-    setTimeout(() => {
-      this.$router.go(-1)
-    }, 2500)
-  },
-  created () {
-    this.$store.dispatch('auth/tryAutoLogin')
-    console.log(this.auth)
-  },
   methods: {
     toggleMenu(){
       return this.showMenu = !this.showMenu
     },
     name () {
-      return this.user? this.user.name: 'No User'
+      return this.user.name? this.user.name : 'No User'
     },
+    email() {
+        return this.user.email? this.user.email: 'No User email'
+    }
+  },
+  created () {
+    this.$store.dispatch('auth/tryAutoLogin')
+    console.log(this.auth)
+  },
+  beforeCreate () {
+    this.$router.push('/welcome')
+    setTimeout(() => {
+      this.$router.go(-1)
+    }, 2500)
   },
   components: {
     MenuDrawer
@@ -135,26 +137,16 @@ body{
   padding: 2px 8px 2px 8px;
   top: 20px;
   right: 25px;
-
-  height: auto;
+  width: 100px;
+  height: 30px;
   background-color: #bd2130;
   border-radius: 15px;
   color:thistle;
-}
-#nav {
-  padding: 20px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+  cursor: pointer;
+  z-index:10;
 }
 .form {
-  width: 280px;
+  width: 250px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -164,9 +156,17 @@ body{
   width: auto;
 }
 .form-group {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.form-control{
+  width: 250px;
 }
 .btn-lg{
   padding: 5px;
+}
+@media only screen and (max-width: 550px) {
+nav{
+    padding: 2rem;
+  }
 }
 </style>

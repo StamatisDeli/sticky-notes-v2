@@ -8,6 +8,10 @@ const state = {
   user: {
     type: Object,
     default: {}
+  },
+  responseMsg:{
+    type: String,
+    default: ""
   }
 };
 
@@ -23,6 +27,9 @@ const mutations = {
     state.idToken = null;
     state.userId = null;
     state.user = {};
+  },
+  SET_MESSAGE(state, message){
+    state.responseMsg = message
   }
 };
 
@@ -69,7 +76,10 @@ const actions = {
         returnSecureToken: true
       })
       .then(res => {
-        console.log(res);
+        if(res.status===400) {
+          NProgress.done()
+          return
+          }
         const now = new Date();
         const expirationDate = new Date(
           now.getTime() + res.data.expiresIn * 1000
@@ -84,7 +94,17 @@ const actions = {
         });
         dispatch("setLogoutTimer", res.data.expiresIn);
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        if(error.response.data.error.message==='INVALID_PASSWORD'){
+          commit("SET_MESSAGE", "Invalid Password")
+          console.log('Wrong Password ')
+          }
+        if(error.response.data.error.message==='EMAIL_NOT_FOUND'){
+          commit("SET_MESSAGE", "Email does not exist")
+          console.log('Email does not exist')
+          }
+        console.log('Error Logging In:', error.response.data.error.message)
+      });
   },
   tryAutoLogin({ commit }) {
     const token = localStorage.getItem("token");
@@ -141,10 +161,13 @@ const actions = {
 
 const getters = {
   user(state) {
-    return state.user;
+    return state.user
   },
   isAuthenticated(state) {
-    return state.idToken !== null;
+    return state.idToken !== null
+  },
+  responseMsg(state) {
+    return state.responseMsg
   }
 };
 

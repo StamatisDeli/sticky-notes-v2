@@ -75,16 +75,16 @@ export default {
   },
   beforeRouteEnter (to, from, next) { 
     next(vm => { 
-      if (vm.auth&&vm.user){
+      if (vm.auth){
         next()
       }
       else {
-        next(vm.$router.push('login'))
+        next(vm.$router.push('signup'))
       }
-    }) 
+    })
   },
   updated () {
-    if(!this.user) this.$router.push('login')
+    //if(!this.auth) this.$router.push('signup')
   },
   async created () {
     await this.$store.dispatch('auth/fetchUser')

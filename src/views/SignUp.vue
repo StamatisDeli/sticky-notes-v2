@@ -1,6 +1,23 @@
 <template>
-<div class="container">
-  <div class="form centered">
+<div class="container h-100 justify-content-center">
+  <div class="row h-100 justify-content-center">
+    <!-- Left content -->
+  <div class="col-xs-6 welcome offset-2 ">
+    <div class="col offset-4">
+      <h2>80's style <br> organizer </h2>
+    </div>
+    <div class="col offset-4" >  
+      <img class=" img-fluid app-logo"  src="../assets/logo-big.svg">
+    </div>
+    <div class="col offset-4">  
+      <img class="img-fluid sd-logo" src="../assets/sd-logo.svg">
+    </div>
+    <footer class="footer offset-4">
+        <p>&copy; Stamatis Deliyannis 2019</p>
+    </footer>
+  </div>
+<!-- Left content -->
+  <div class="col-xs-6 form offset-2 ">
     <form @submit.prevent="signUp">
       <div class="form-header">
         <h2>Sign Up</h2>
@@ -45,13 +62,14 @@
     <div class="text-center small">Already have an account?
       <router-link to="login" tag="a">Login here</router-link>
     </div>
+    <div class="custom">
+      <button class="btn btn-lg btn-google custom" type="submit">
+      <i class="fab fa-google mr-2"></i>Log in with Google</button>
+    </div>
+  </div>
 
-  </div>
-  <div class="custom">
-    <button class="btn btn-lg btn-google custom" type="submit">
-    <i class="fab fa-google mr-2"></i>Log in with Google</button>
-  </div>
   <BaseSuccess v-show="showSuccess" />
+</div>
 </div>
 </template>
 
@@ -89,6 +107,58 @@ export default {
 
 
 <style scoped>
+.container{
+  position: absolute;
+  top:0;
+  max-width: 100%;
+  max-height: 100%;
+  background-color: #FF2E77;
+  padding: 5rem;
+  background-image: url('../assets/grid.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+}
+.welcome {
+  /* z-index: 0; */
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content:space-evenly;
+  width: 250px;
 
+}
+.sd-logo{
+  margin: 2rem;
+  width: 20%;
+}
+h2 {
+  font-family: 'Caveat', cursive;
+  font-size: 3rem;
+  color: rgb(151, 0, 0);
+  text-align: center;
+}
+.back-image{
+  position: fixed;
+  z-index: 1;
+  width: 70%;
+  opacity: 0.8;
+}
+h2 {
+  font-size: 2rem;
+}
+@media only screen and (max-width: 850px) {
+  .welcome{
+    display: none;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .container{
+    background-size: 120%;
+    padding: 0;
+    padding-top: 2rem;
+  }
+}
 </style>
 

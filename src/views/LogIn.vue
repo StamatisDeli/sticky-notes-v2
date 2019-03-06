@@ -1,18 +1,20 @@
 <template>
 <div class="container">
-    <div class="form centered">
+    <div class="form ">
     <form @submit.prevent="logIn">
       <div class="form-header">
         <h2>Log In</h2>
       </div>
       <div class="form-group">
         <label>Email Address</label>
+        <p >{{ wrongEmail() }}</p>
         <input type="email" class="form-control" autocomplete="email" 
         name="email" required="required"
         id="email" v-model="formData.email">
       </div>
       <div class="form-group">
         <label>Password</label>
+        <p v-show="wrongPassword">{{ wrongPassword() }}</p>
         <input type="password" class="form-control" autocomplete="password" minlength=6 maxlength=10
         name="password" required="required"
         id="password" v-model="formData.password">
@@ -35,6 +37,14 @@ export default {
   name:'LogIn',
   data () {
       return {
+        // wrongEmail:{
+        //   type: Boolean,
+        //   default: false
+        // },
+        // wrongPassword:{
+        //   type: Boolean,
+        //   default: false
+        // },
         showSuccess: false,
         formData:{
           email: 'stam@gmail.com',
@@ -42,27 +52,42 @@ export default {
         }
       }
   },
+  computed:{
+
+  },
   methods: {
     logIn(){
       return this.$store.dispatch('auth/login', {email: this.formData.email, password: this.formData.password})
         .then((res)=>{ 
+          if(!this.$store.getters['auth/isAuthenticated'])return
+
           this.showSuccess = true
+          this.$store.commit('auth/SET_MESSAGE','')
+
           setTimeout(()=>{
             this.showSuccess = false
             return this.$router.push('/')
-            }, 1500)
+          }, 1500)
         })
-        // .then(()=>{ 
-        //   return this.$router.push('/')
-        // })
-        .catch((e)=>{
-          alert('Error Logging In!: ', e.message)
-        })
+    },
+    wrongEmail(){
+      let msg = this.$store.getters['auth/responseMsg']
+      if(!msg.length) return null
+      if(msg==="Email does not exist") return msg
+    },
+    wrongPassword(){
+      let msg = this.$store.getters['auth/responseMsg']
+      if(!msg.length) return null
+      if(msg==="Invalid Password") return msg
     }
   }
 }
 </script>
 
 <style scoped>
-
+.container{
+  display: flex;
+  align-self:center;
+  margin: 0 auto;
+}
 </style>

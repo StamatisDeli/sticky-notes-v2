@@ -1,9 +1,10 @@
 <template>
     <div class="welcome" @click="goHome()">
         <h2>80's style <br> organizer </h2>
-          <img class="app-logo" src="../assets/logo-big.svg">
+          <img class="app-logo"  src="../assets/logo-big.svg">
           <img class="sd-logo" src="../assets/sd-logo.svg">
           <img class="back-image" src="../assets/grid.svg">
+
         <footer class="footer">
             <p>&copy; Stamatis Deliyannis 2019</p>
         </footer>
@@ -11,6 +12,7 @@
 </template>
 
 <script>
+import SignUp from '../views/SignUp.vue';
 export default {
   methods: {
     goHome () {
@@ -33,10 +35,6 @@ export default {
   width: 100%;
   height: 100%;
   background-color: #FF2E77;
-  /* background-image:url(../assets/grid.svg); */
-  background-repeat:no-repeat;
-  background-position: center;
-  background-size: 70%;
 }
 .app-logo {
   width: 30%;
@@ -61,6 +59,9 @@ footer {
   width: 70%;
   opacity: 0.8;
 }
+h2 {
+  font-size: 2rem;
+}
 @media only screen and (max-width: 700px) {
   .app-logo{
     width: 60%;
@@ -75,9 +76,6 @@ footer {
     -moz-transform:     rotate(90deg);
     -webkit-transform:  rotate(90deg);
     -o-transform:       rotate(90deg);
-  }
-  h2 {
-    font-size: 2rem;
   }
 }
 </style>

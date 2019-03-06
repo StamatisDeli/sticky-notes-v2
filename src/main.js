@@ -15,7 +15,6 @@ Vue.config.productionTip = false
 
 axios.defaults.baseURL = "https://sticky-notes-v2.firebaseio.com"
 
-
 // before a request is made start the nprogress
 axios.interceptors.request.use(config => { 
   store.commit("booleans/SET_LOADING", true);

@@ -1,13 +1,13 @@
 <template>
 <div class="modal" tabindex="-1" role="dialog" @click="toggleMenu">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="navigation">
         <div class="modal-content">
             <div class="modal-logo-container">
                 <img class="logo-small" @click="goHome"  src="@/assets/logo-small.svg" alt="logo and home button" role="navigation">
             </div>
             <div class="modal-header">
-                <h5 class="modal-title"> {{ name() }} </h5>
-                <p>{{ email() }}</p>
+                <h5 class="modal-title"> {{ nameTo() }} </h5>
+                <p>{{ emailTo() }}</p>
             </div>
             <div class="modal-body">
                 <ul class="list-group">
@@ -28,9 +28,9 @@ import {mapState} from 'vuex'
     export default {
     name:'MenuDrawer',
     props:{
-        toggleMenu:{
-            type: Function
-        }
+        nameTo:{type:Function},
+        emailTo:{type:Function},
+        toggleMenu:{type: Function}
     },
     computed:{
         ...mapState({
@@ -39,12 +39,6 @@ import {mapState} from 'vuex'
         })
     },
     methods: {
-        name() {
-            return this.user.name? this.user.name : 'No User'
-        },
-        email() {
-            return this.user.email? this.user.email: 'No User email'
-        },
         logoutUser() {
             this.$store.dispatch('auth/logout')
             this.$store.commit('notes/SET_NOTES', {})
@@ -56,7 +50,7 @@ import {mapState} from 'vuex'
     },
     created(){
         console.log('Menu',this.$store.getters['auth/user'])
-        console.log(this.name())
+        console.log(this.nameTo)
     }
     }
 </script>
@@ -69,6 +63,10 @@ import {mapState} from 'vuex'
     top: 0px!important;
     left: 0px!important;
     border-radius: 0px;
+}
+.modal-dialog {
+    margin: 0;
+    max-width: 250px;
 }
 .modal-logo-container{
     display: -ms-flexbox;
@@ -83,12 +81,8 @@ import {mapState} from 'vuex'
     border-top-right-radius: .3rem;
 }
 .logo-small{
-    width:50%;
+    width:100px;
     cursor: pointer;
-}
-.modal-dialog {
-    margin: 0;
-    max-width: 300px;
 }
 .modal{
     display: block;
