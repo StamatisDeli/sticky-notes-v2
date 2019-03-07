@@ -82,7 +82,7 @@ html * {
     margin: 0;
     box-sizing: border-box;
 }
-body{
+body {
   color: red;
   background-repeat: no-repeat;
   background: #e2e2e2;

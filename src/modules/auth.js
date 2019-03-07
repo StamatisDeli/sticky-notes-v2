@@ -1,6 +1,5 @@
-import axios from "../helpers/axios-auth";
-import globalAxios from "axios";
-import router from "../router";
+import axios from "../helpers/axios-auth"
+import globalAxios from "axios"
 
 const state = {
   idToken: null,
@@ -165,7 +164,8 @@ const actions = {
         commit("STORE_USER", data);
         console.log("USER IN STORE!", data);
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        console.log(error)});
   }
 };
 

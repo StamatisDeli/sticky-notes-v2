@@ -1,6 +1,6 @@
 <template>
   <div class="container fluid" >
-    <h2 v-if="notes.length" >your notes</h2>
+    <h2 v-if="notes.length" >stick a note!</h2>
     <div class="form-check">
       <input type="checkbox" id="appNotes" class="form-check-input"
       v-model="check">
@@ -34,15 +34,13 @@
 
 <script>
 // @ is an alias to /src
-// import axios from 'axios'
 import NoteThumb from '@/components/NoteThumb.vue'
 import { mapGetters, mapState } from 'vuex'
 
 export default {
   data () {
     return {
-      check: false,
-      //showMenu: false
+      check: false
     }
   },
   computed: {
@@ -61,6 +59,13 @@ export default {
     },
     auth () {
         return this.$store.getters['auth/isAuthenticated']
+    }
+  },
+  watch: {
+    auth(){
+      if(!this.auth){
+        this.$router.push('/signup')
+      }
     }
   },
   methods: {
@@ -84,7 +89,7 @@ export default {
     })
   },
   updated () {
-    //if(!this.auth) this.$router.push('signup')
+    if(!this.auth) this.$router.push('signup')
   },
   async created () {
     await this.$store.dispatch('auth/fetchUser')
