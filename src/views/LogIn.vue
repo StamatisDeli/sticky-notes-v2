@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="login-container">
     <div class="form ">
     <form @submit.prevent="logIn">
       <div class="form-header">
@@ -73,10 +73,11 @@ export default {
 </script>
 
 <style scoped>
-.container{
-  display: flex;
+.login-container{
+  padding-top: 10%;
+}
+.form {
   align-self:center;
-  margin: 0 auto;
 }
 .error-message{
   color:rgb(204, 4, 4);

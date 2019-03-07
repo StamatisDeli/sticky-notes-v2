@@ -171,36 +171,39 @@ export default {
 </script>
 
 <style scoped>
-    .note{
-        max-width: 400px;
-        max-height: 400px;
-        min-width: 280px;
-        min-height: 280px;
-        /* background-color: rgba(255, 255, 0, 0.63);
-        border: 1px solid rgba(53, 7, 7, 0.384); */
-        background-image: url("../assets/sticky-note.svg");
-        background-repeat: no-repeat;
-    }
-    form {
-        padding-bottom: 3rem;
-        min-width: 280px;
-        text-align: left;
-    }
-    input{
-        background-color: rgba(255, 255, 255, 0);
-        width: 90%;
-        border: 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.712);
-        box-shadow: none;
-    }
-    textarea{
-        background-color: rgba(255, 255, 255, 0);
-        width: 90%;
-        border: 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.712);
-    }
-    ::-webkit-input-placeholder { color: rgba(255, 255, 255, 0.712); }
-    :-moz-placeholder           { color: rgba(255, 255, 255, 0.712); }
-    ::-moz-placeholder          { color: rgba(255, 255, 255, 0.712); }
-    :-ms-input-placeholder      { color: rgba(255, 255, 255, 0.712); }
+.wrapper {
+    padding-top:80px;
+}
+.note {
+    max-width: 400px;
+    max-height: 400px;
+    min-width: 280px;
+    min-height: 280px;
+    /* background-color: rgba(255, 255, 0, 0.63);
+    border: 1px solid rgba(53, 7, 7, 0.384); */
+    background-image: url("../assets/sticky-note.svg");
+    background-repeat: no-repeat;
+}
+form {
+    padding-bottom: 3rem;
+    min-width: 280px;
+    text-align: left;
+}
+input{
+    background-color: rgba(255, 255, 255, 0);
+    width: 90%;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.712);
+    box-shadow: none;
+}
+textarea{
+    background-color: rgba(255, 255, 255, 0);
+    width: 90%;
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.712);
+}
+::-webkit-input-placeholder { color: rgba(255, 255, 255, 0.712); }
+:-moz-placeholder           { color: rgba(255, 255, 255, 0.712); }
+::-moz-placeholder          { color: rgba(255, 255, 255, 0.712); }
+:-ms-input-placeholder      { color: rgba(255, 255, 255, 0.712); }
 </style>

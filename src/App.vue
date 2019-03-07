@@ -26,6 +26,7 @@
 import {mapState} from 'vuex'
 import MenuDrawer from '@/components/MenuDrawer.vue'
 import WelcomeScreen from '@/views/WelcomeScreen.vue'
+
 export default {
   data () {
       return {
@@ -101,6 +102,7 @@ body {
   background-image: url("./assets/pattern.svg");
   opacity:0.1;
 }
+
 #app {
   z-index:4;
   width: 100%;

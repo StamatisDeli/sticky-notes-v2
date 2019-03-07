@@ -1,12 +1,13 @@
 <template>
   <div class="container fluid" >
-    <h2 v-if="notes.length" >stick a note!</h2>
+    <div v-show="!temp">
+    <h2 v-if="notes.length" >make a note!</h2>
     <div class="form-check">
       <input type="checkbox" id="appNotes" class="form-check-input"
       v-model="check">
       <label for="appNotes" class="form-check-label" >Older Notes First</label>
     </div>
-    <section class="row text-center text-lg-left " v-if="notes.length">
+    <section class="row text-center text-lg-left " v-if="notes.length&&!isLoading">
       <NoteThumb
         class="col col-xl-2 col-lg-2 col-md-2 col-sm-3 col-sm-6"
         v-for="note in appNotes"
@@ -17,8 +18,9 @@
         <p>{{ note.id }}</p>
       </NoteThumb>
     </section>
+
 <!-- SPINNER -->
-    <BaseSpinner v-if="isLoading&&!notes.length&&name" ></BaseSpinner>
+    <BaseSpinner v-if="isLoading" ></BaseSpinner>
 
     <section v-else-if="!notes.length" class="text-muted">
       <br><br>
@@ -30,17 +32,21 @@
     <i>+</i>
     </button>
   </div>
+  <LoadingAnim v-show="isLoading" />
+  </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import NoteThumb from '@/components/NoteThumb.vue'
+import LoadingAnim from '@/components/LoadingAnim.vue'
 import { mapGetters, mapState } from 'vuex'
 
 export default {
   data () {
     return {
-      check: false
+      check: false,
+      temp: false
     }
   },
   computed: {
@@ -96,7 +102,8 @@ export default {
     await this.$store.dispatch('notes/getNotes')
   },
   components: {
-    NoteThumb
+    NoteThumb,
+    LoadingAnim
   }
 }
 </script>

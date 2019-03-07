@@ -1,5 +1,6 @@
 import axios from "../helpers/axios-auth"
 import globalAxios from "axios"
+import router from "../router"
 
 const state = {
   idToken: null,
@@ -165,6 +166,7 @@ const actions = {
         console.log("USER IN STORE!", data);
       })
       .catch(error => {
+        router.push('signup')
         console.log(error)});
   }
 };
