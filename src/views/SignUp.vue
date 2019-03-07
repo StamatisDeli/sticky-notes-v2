@@ -30,7 +30,7 @@
       </div>
       <div class="form-group">
         <label>Email Address</label>
-        <p >{{ wrongEmail() }}</p>
+        <p class="error-message" >{{ wrongEmail() }}</p>
         <input type="email" class="form-control" autocomplete="new-email"
         name="email" required="required"
         id="email" v-model="formData.email">
@@ -93,7 +93,7 @@ export default {
     signUp(){
         return this.$store.dispatch('auth/signup', this.formData)
           .then((res)=>{
-            if(!this.$store.getters['auth/isAuthenticated'])return
+            if(!this.$store.getters['auth/isAuthenticated']) return NProgress.done()
             this.showSuccess = true
             setTimeout(()=>{
               this.showSuccess = false
@@ -160,6 +160,9 @@ h2 {
 }
 h2 {
   font-size: 2rem;
+}
+.error-message{
+  color:rgb(204, 4, 4);
 }
 @media only screen and (max-width: 850px) {
   .welcome{

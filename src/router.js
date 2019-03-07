@@ -1,15 +1,12 @@
-import Vue from "vue";
-import Router from "vue-router";
+import Vue from "vue"
+import Router from "vue-router"
 import Note from './components/Note.vue'
-import LogIn from "./views/LogIn.vue";
-import SignUp from "./views/SignUp.vue";
-import Home from "./views/Home.vue";
-
-import store from './store.js';
+import LogIn from "./views/LogIn.vue"
+import SignUp from "./views/SignUp.vue"
+import Home from "./views/Home.vue"
 
 Vue.use(Router);
 
-//export default new Router({
 const router = new Router ({
   routes: [
     {
@@ -49,19 +46,14 @@ const router = new Router ({
       component: Note
     }
   ]
-});
+})
 
 router.beforeResolve((to, from, next) => {
-  // If this isn't an initial page load.
-  //if (to.name) {
-      // Start the route progress bar.
-      NProgress.start()
-  //}
+  NProgress.start()
   next()
 })
 
 router.afterEach((to, from) => {
-  // Complete the animation of the route progress bar.
   NProgress.done()
 })
 

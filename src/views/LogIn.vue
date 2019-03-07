@@ -7,14 +7,14 @@
       </div>
       <div class="form-group">
         <label>Email Address</label>
-        <p >{{ wrongEmail() }}</p>
+        <p class="error-message">{{ wrongEmail() }}</p>
         <input type="email" class="form-control" autocomplete="email" 
         name="email" required="required"
         id="email" v-model="formData.email">
       </div>
       <div class="form-group">
         <label>Password</label>
-        <p>{{ wrongPassword() }}</p>
+        <p class="error-message" >{{ wrongPassword() }}</p>
         <input type="password" class="form-control" autocomplete="password" minlength=6 maxlength=10
         name="password" required="required"
         id="password" v-model="formData.password">
@@ -47,7 +47,7 @@ export default {
     logIn(){
       return this.$store.dispatch('auth/login', {email: this.formData.email, password: this.formData.password})
         .then((res)=>{ 
-          if(!this.$store.getters['auth/isAuthenticated'])return
+          if(!this.$store.getters['auth/isAuthenticated']) return NProgress.done()
 
           this.showSuccess = true
           this.$store.commit('auth/SET_MESSAGE','')
@@ -77,5 +77,8 @@ export default {
   display: flex;
   align-self:center;
   margin: 0 auto;
+}
+.error-message{
+  color:rgb(204, 4, 4);
 }
 </style>
