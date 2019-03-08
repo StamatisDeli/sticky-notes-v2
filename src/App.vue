@@ -18,19 +18,24 @@
       <MenuDrawer v-show="showMenu" :toggleMenu="toggleMenu" :key="auth" :nameTo="name" :emailTo="email"/>
     </nav>
 
-    <router-view/>
+    <router-view v-if="!showWelcome"/>
+
+    <transition name="component-fade" mode="out-in" >
+      <WelcomeScreen v-show="showWelcome" style="z-index:50;" />
+    </transition>
   </div>
 </template>
 
 <script>
 import {mapState} from 'vuex'
 import MenuDrawer from '@/components/MenuDrawer.vue'
-import WelcomeScreen from '@/views/WelcomeScreen.vue'
+import WelcomeScreen from '@/components/WelcomeScreen.vue'
 
 export default {
   data () {
       return {
-        showMenu: false
+        showMenu: false,
+        showWelcome: true
       }
   },
   computed:{
@@ -53,18 +58,24 @@ export default {
         return this.user.email? this.user.email: 'No User email'
     }
   },
+  mounted(){
+    setTimeout(() => {
+      this.showWelcome=false
+    }, 2500)
+  },
   created () {
     this.$store.dispatch('auth/tryAutoLogin')
     console.log(this.auth)
   },
   beforeCreate () {
-    this.$router.push('/welcome')
-    setTimeout(() => {
-      this.$router.go(-1)
-    }, 2500)
+    // this.showWelcome=true
+    // setTimeout(() => {
+    //   this.showWelcome=false
+    // }, 2500)
   },
   components: {
-    MenuDrawer
+    MenuDrawer,
+    WelcomeScreen
   }
 }
 </script>
@@ -165,6 +176,13 @@ body {
 }
 .btn-lg{
   padding: 5px;
+}
+.component-fade-enter-active, .component-fade-leave-active {
+  transition: opacity .2s ease;
+}
+.component-fade-enter, .component-fade-leave-to
+/* .component-fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 @media only screen and (max-width: 550px) {
 nav{

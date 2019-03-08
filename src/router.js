@@ -10,13 +10,6 @@ Vue.use(Router);
 const router = new Router ({
   routes: [
     {
-      path: "/welcome",
-      name: "welcome",
-      // component: Welcome
-      component: () =>
-        import(/* webpackChunkName: "welcome" */ "./views/WelcomeScreen.vue")
-    },
-    {
       path: "/",
       name: "home",
       component: Home

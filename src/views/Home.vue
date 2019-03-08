@@ -32,7 +32,7 @@
     <i>+</i>
     </button>
   </div>
-  <LoadingAnim v-show="isLoading" />
+  <LoadingAnim v-show="isLoading" style="opacity: 0.5;"/>
   </div>
 </template>
 
@@ -97,9 +97,9 @@ export default {
   updated () {
     if(!this.auth) this.$router.push('signup')
   },
-  async created () {
-    await this.$store.dispatch('auth/fetchUser')
-    await this.$store.dispatch('notes/getNotes')
+  created () {
+    this.$store.dispatch('auth/fetchUser')
+    this.$store.dispatch('notes/getNotes')
   },
   components: {
     NoteThumb,
