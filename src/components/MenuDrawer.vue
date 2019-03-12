@@ -11,15 +11,18 @@
             </div>
             <div class="modal-body">
                 <ul class="list-group">
-                <li class="list-group-item">User Information</li>
+                <router-link class="list-group-item" tag="li" to="/instructions">Instructions</router-link>
                 <router-link class="list-group-item" tag="li" to="/about">About</router-link>
-                <li class="list-group-item" @click="logoutUser" >Log Out</li>
+                <router-link class="list-group-item" tag="li" to="/signup" v-show="!this.userId">Sign Up</router-link>
+                <router-link class="list-group-item" tag="li" to="/login" v-show="!this.userId">Log In</router-link>
+                <li class="list-group-item" @click="logoutUser" v-show="this.userId">Log Out</li>
                 </ul>
             </div>
             <div class="modal-footer">
             </div>
         </div>
     </div>
+    <div class="modal-background"></div>
 </div>
 </template>
 
@@ -40,11 +43,13 @@ import {mapState} from 'vuex'
     },
     methods: {
         logoutUser() {
+            if(!this.userId) return
             this.$store.dispatch('auth/logout')
             this.$store.commit('notes/SET_NOTES', {})
             this.$router.push('/')
         },
         goHome(){
+            if(!this.userId) return
             this.$router.push('/')
         }
     },
@@ -56,17 +61,27 @@ import {mapState} from 'vuex'
 </script>
 
 <style scoped>
-.navbar {
+.modal{
+    display: block;
     z-index: 10;
-    padding: 0;
-    position: fixed!important;
-    top: 0px!important;
-    left: 0px!important;
-    border-radius: 0px;
+    /* background-color: rgba(0, 0, 0, 0.3); */
+}
+.modal-background{
+    background-color: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+    transition-delay:1s
 }
 .modal-dialog {
     margin: 0;
     max-width: 250px;
+    z-index: 2;
 }
 .modal-logo-container{
     display: -ms-flexbox;
@@ -83,11 +98,6 @@ import {mapState} from 'vuex'
 .logo-small{
     width:100px;
     cursor: pointer;
-}
-.modal{
-    display: block;
-    z-index: 10;
-    background-color: rgba(0, 0, 0, 0.3);
 }
 .modal-header{
     flex-direction: column;

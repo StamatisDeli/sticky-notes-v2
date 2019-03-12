@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="instructions">
     <h4>Instructions:</h4>
     <ul>
         <li>Make a new note by clicking on the plus <kbd>+</kbd> button.</li>
@@ -23,5 +23,7 @@
 </script>
 
 <style scoped>
-
+  .instructions {
+    padding-top: 5%;
+  }
 </style>

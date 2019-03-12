@@ -37,7 +37,8 @@
     height: 100%;
 }
 .fake {
-    background-image: linear-gradient(to right bottom, #a6a6a6, #b1b1b1, #bcbcbc, #c7c7c7, #d2d2d2, 0.65);        cursor:none;
+    background-image: linear-gradient(to right bottom, #a6a6a6, #b1b1b1, #bcbcbc, #c7c7c7, #d2d2d2);
+    cursor:none;
     border-radius: 8px;
 }
 .fake-nav{

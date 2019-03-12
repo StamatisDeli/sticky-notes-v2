@@ -4,6 +4,7 @@ import Note from './components/Note.vue'
 import LogIn from "./views/LogIn.vue"
 import SignUp from "./views/SignUp.vue"
 import Home from "./views/Home.vue"
+import Instructions from "./views/Instructions.vue"
 
 Vue.use(Router);
 
@@ -37,6 +38,11 @@ const router = new Router ({
       path: "/note",
       name: "note",
       component: Note
+    },
+    {
+      path: "/instructions",
+      name: "instructions",
+      component: Instructions
     }
   ]
 })

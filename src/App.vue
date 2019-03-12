@@ -2,7 +2,7 @@
   <div id="app">
     <div class="overlay"></div>
     <nav>
-      <div class="hamburger" v-show="!showMenu" @click="toggleMenu">
+      <div class="hamburger" v-if="!showMenu" @click="toggleMenu">
         <div></div>
         <div></div>
         <div></div>
@@ -14,13 +14,15 @@
         <p v-show="auth" > {{ name() }} </p>
         <router-link to="/login" tag="p" v-show="!auth">Login</router-link>
       </div>
-
-      <MenuDrawer v-show="showMenu" :toggleMenu="toggleMenu" :key="auth" :nameTo="name" :emailTo="email"/>
+      
+      <transition name="slide-menu" mode="out-in">
+        <MenuDrawer v-if="showMenu" :toggleMenu="toggleMenu" :key="auth" :nameTo="name" :emailTo="email"/>
+      </transition>
     </nav>
 
     <router-view v-if="!showWelcome"/>
 
-    <transition name="component-fade" mode="out-in" >
+    <transition name="component-fade" mode="out-in">
       <WelcomeScreen v-show="showWelcome" style="z-index:50;" />
     </transition>
   </div>
@@ -183,6 +185,16 @@ body {
 .component-fade-enter, .component-fade-leave-to
 /* .component-fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+.slide-menu-leave-active,
+.slide-menu-enter-active {
+  transition: 0.3s ease;
+}
+.slide-menu-enter {
+  transform: translate(-100%, 0);
+}
+.slide-menu-leave-to {
+  transform: translate(-100%, 0);
 }
 @media only screen and (max-width: 550px) {
 nav{

@@ -1,9 +1,10 @@
 <template>
   <div class="about">
-    <h2>This is a test project</h2>
+    <h2>Sticky Notes</h2>
     <br>
     <h3>Code Owner: Stamatis Deliyannis</h3>
     <p>stamatis.deliyannis@gmail.com</p>
+    <a href="https://github.com/StamatisDeli">My GitHub Page</a>
     <br>
     <br>
     <h4>Tech Used</h4>

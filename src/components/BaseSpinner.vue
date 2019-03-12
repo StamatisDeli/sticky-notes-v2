@@ -1,7 +1,7 @@
 <template>
-      <div class="container spinner">
-        <img src="../assets/loading.svg"  class="img-responsive">
-      </div>
+  <div class="container spinner">
+    <img src="../assets/loading.svg"  class="img-responsive">
+  </div>
 </template>
 
 <script>

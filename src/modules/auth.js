@@ -116,7 +116,7 @@ const actions = {
         console.log('Error Logging In:', error.response.data.error.message)
       })
   },
-  tryAutoLogin({ commit }) {
+  tryAutoLogin({ commit, dispatch }) {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
 
@@ -127,9 +127,9 @@ const actions = {
     const expirationDate = localStorage.getItem("expirationDate");
     const now = new Date();
 
-    if (now >= expirationDate) {
+    if (now > expirationDate) {
       commit("CLEAR_AUTH_DATA");
-      return;
+      dispatch('logout')
     }
 
     commit("AUTH_USER", {

@@ -64,10 +64,10 @@
     <div class="text-center small">Already have an account?
       <router-link to="login" tag="a">Login here</router-link>
     </div>
-    <div class="custom">
+    <!-- <div class="custom">
       <button class="btn btn-lg btn-google custom" type="submit">
-      <i class="fab fa-google mr-2"></i>Log in with Google</button>
-    </div>
+      <i class="fab fa-google mr-2"></i>Sign Up with Google</button>
+    </div> -->
   </div>
 
   <BaseSuccess v-show="showSuccess" />

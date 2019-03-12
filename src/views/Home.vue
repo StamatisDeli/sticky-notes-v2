@@ -1,6 +1,6 @@
 <template>
   <div class="container fluid" >
-    <div v-show="!temp">
+    <div v-show="!isLoading">
     <h2 v-if="notes.length" >make a note!</h2>
     <div class="form-check">
       <input type="checkbox" id="appNotes" class="form-check-input"
@@ -19,20 +19,18 @@
       </NoteThumb>
     </section>
 
-<!-- SPINNER -->
-    <BaseSpinner v-if="isLoading" ></BaseSpinner>
-
     <section v-else-if="!notes.length" class="text-muted">
       <br><br>
       <p class="text-info">Click on the <kbd>+</kbd> button to add a note!</p>
     </section>
-    <button type="button" id="plus-button"
-    class="btn btn-danger btn-circle btn-xl"
-    @click="newNote">
-    <i>+</i>
-    </button>
+    <div role="button" id="plus-button" @click="newNote">
+      <img src="@/assets/plus.svg"/>
+    </div>
   </div>
-  <LoadingAnim v-show="isLoading" style="opacity: 0.5;"/>
+  <!-- SPINNER -->
+    <LoadingAnim v-show="isLoading" style="opacity: 0.5;"/>
+    <!-- SPINNER -->
+    <BaseSpinner v-if="isLoading" ></BaseSpinner>
   </div>
 </template>
 
@@ -90,7 +88,10 @@ export default {
         next()
       }
       else {
-        next(vm.$router.push('signup'))
+        next(
+          vm$store.commit("auth/SET_USER_ID", null),
+          vm.$router.push('signup')
+          )
       }
     })
   },
@@ -118,18 +119,23 @@ h2 {
   position: fixed;
   bottom: 20px;
   right: 20px;
-}
-.btn-circle {
- border-radius: 50%;
-}
-.btn-circle.btn-xl {
   width: 60px;
   height: 60px;
-  padding: 10px 16px;
-  font-size: 24px;
-  line-height: 1.33;
-  border-radius: 35px;
+  border-radius: 30px;
   z-index: 5;
+  cursor: pointer;
+  border:none;
+  padding: 0;
+  margin:0;
+  -webkit-box-shadow: 5px 5px 5px -1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 5px 5px 5px -1px rgba(0,0,0,0.75);
+  box-shadow: 5px 5px 5px -1px rgba(0,0,0,0.75);
+}
+#plus-button >img{
+  width:100%;
+  border:0;
+  padding: 0;
+  margin:0;
 }
 .form-check{
   padding-bottom:1rem;

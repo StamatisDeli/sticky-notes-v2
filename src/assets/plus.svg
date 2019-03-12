@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve">
+<style type="text/css">
+	.st0{clip-path:url(#XMLID_3_);fill:#FF2E77;}
+	.st1{clip-path:url(#XMLID_3_);fill:#2871FF;}
+	.st2{fill:#FFFFFF;}
+</style>
+<g>
+	<defs>
+		<circle id="XMLID_1_" cx="30" cy="30" r="30"/>
+	</defs>
+	<use xlink:href="#XMLID_1_"  style="overflow:visible;fill:#009EFF;"/>
+	<clipPath id="XMLID_3_">
+		<use xlink:href="#XMLID_1_"  style="overflow:visible;"/>
+	</clipPath>
+	<polygon class="st0" points="30,30 50,56 30,67 	"/>
+	<path class="st1" d="M3,5c0,1,27,25,27,25v37L9,66L-6,30L3,5z"/>
+</g>
+<g>
+	<path class="st2" d="M30,46L30,46c-0.6,0-1-0.4-1-1V15c0-0.6,0.4-1,1-1h0c0.6,0,1,0.4,1,1v30C31,45.6,30.6,46,30,46z"/>
+	<path class="st2" d="M46,30L46,30c0,0.6-0.4,1-1,1H15c-0.6,0-1-0.4-1-1v0c0-0.6,0.4-1,1-1h30C45.6,29,46,29.4,46,30z"/>
+</g>
+</svg>
