@@ -88,10 +88,7 @@ export default {
         next()
       }
       else {
-        next(
-          vm$store.commit("auth/SET_USER_ID", null),
-          vm.$router.push('signup')
-          )
+        next(vm.$router.push('signup'))
       }
     })
   },

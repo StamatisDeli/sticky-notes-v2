@@ -15,14 +15,20 @@
         <router-link to="/login" tag="p" v-show="!auth">Login</router-link>
       </div>
       
-      <transition name="slide-menu" mode="out-in">
-        <MenuDrawer v-if="showMenu" :toggleMenu="toggleMenu" :key="auth" :nameTo="name" :emailTo="email"/>
+      <transition name="slide-menu" mode="in-out">
+        <MenuDrawer v-if="showMenu" :toggleMenu="toggleMenu" :key="auth" 
+        :nameTo="name" :emailTo="email"/>
       </transition>
+
+      <transition name="fade" mode="in-out">
+        <div class="darkBg" v-if="showMenu"></div>
+      </transition>
+
     </nav>
 
     <router-view v-if="!showWelcome"/>
 
-    <transition name="component-fade" mode="out-in">
+    <transition name="welcome-fade" mode="out-in">
       <WelcomeScreen v-show="showWelcome" style="z-index:50;" />
     </transition>
   </div>
@@ -47,6 +53,11 @@ export default {
     }),
     auth () {
       return this.$store.getters['auth/isAuthenticated']
+    },
+    fadeBg () {
+      return {
+        'background-color': 'rgba(0, 0, 0, 0.3)',
+      }
     }
   },
   methods: {
@@ -68,12 +79,6 @@ export default {
   created () {
     this.$store.dispatch('auth/tryAutoLogin')
     console.log(this.auth)
-  },
-  beforeCreate () {
-    // this.showWelcome=true
-    // setTimeout(() => {
-    //   this.showWelcome=false
-    // }, 2500)
   },
   components: {
     MenuDrawer,
@@ -179,13 +184,14 @@ body {
 .btn-lg{
   padding: 5px;
 }
-.component-fade-enter-active, .component-fade-leave-active {
+/* WELCOME SCREEN COMPONENT FADE IN */
+.welcome-fade-enter-active, .welcome-fade-leave-active {
   transition: opacity .2s ease;
 }
-.component-fade-enter, .component-fade-leave-to
-/* .component-fade-leave-active below version 2.1.8 */ {
+.welcome-fade-enter, .welcome-fade-leave-to {
   opacity: 0;
 }
+/* SLIDE IN MENU */
 .slide-menu-leave-active,
 .slide-menu-enter-active {
   transition: 0.3s ease;
@@ -195,6 +201,26 @@ body {
 }
 .slide-menu-leave-to {
   transform: translate(-100%, 0);
+}
+/* DARK BG DIV */
+.darkBg {
+    display: block;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.3);
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+}
+/* DARK BG FADE IN */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s ease;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 @media only screen and (max-width: 550px) {
 nav{

@@ -1,6 +1,8 @@
 <template>
-<div class="modal" tabindex="-1" role="dialog" @click="toggleMenu">
-    <div class="modal-dialog" role="navigation">
+<div class="menu" 
+    tabindex="-1" role="dialog" @click="toggleMenu">
+    <div class="modal-dialog " 
+        role="navigation">
         <div class="modal-content">
             <div class="modal-logo-container">
                 <img class="logo-small" @click="goHome"  src="@/assets/logo-small.svg" alt="logo and home button" role="navigation">
@@ -22,13 +24,13 @@
             </div>
         </div>
     </div>
-    <div class="modal-background"></div>
 </div>
+
 </template>
 
 <script>
 import {mapState} from 'vuex'
-    export default {
+export default {
     name:'MenuDrawer',
     props:{
         nameTo:{type:Function},
@@ -52,36 +54,27 @@ import {mapState} from 'vuex'
             if(!this.userId) return
             this.$router.push('/')
         }
-    },
-    created(){
-        console.log('Menu',this.$store.getters['auth/user'])
-        console.log(this.nameTo)
     }
-    }
+}
 </script>
 
 <style scoped>
-.modal{
+.menu{
     display: block;
-    z-index: 10;
-    /* background-color: rgba(0, 0, 0, 0.3); */
-}
-.modal-background{
-    background-color: rgba(0, 0, 0, 0.3);
     position: fixed;
+    /* background-color: rgba(0, 0, 0, 0.3); */
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 20;
     width: 100%;
     height: 100%;
     overflow: hidden;
     outline: 0;
-    transition-delay:1s
 }
 .modal-dialog {
     margin: 0;
     max-width: 250px;
-    z-index: 2;
+    z-index: 40;
 }
 .modal-logo-container{
     display: -ms-flexbox;
@@ -107,5 +100,70 @@ import {mapState} from 'vuex'
 }
 .list-group>li{
     cursor:pointer;
+}
+/* SLIDE IN OUT */
+.slide-in {
+    left: -100%;
+    animation-name: slideIn;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-duration: .3s;
+    animation-fill-mode: forwards;
+}
+@keyframes slideIn {
+    100% {
+        left: 0;
+    }
+}
+.slide-out {
+    left: 0;
+    animation-name: slideOut;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+    animation-duration: .3s;
+    animation-fill-mode: both;
+}
+@keyframes slideOut {
+    100% {
+        left: -100%;
+    }
+}
+/* FADE IN OUT */
+.fade-in {
+    opacity: 1;
+    animation-name: fadeInBg;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: .3s;
+}
+@keyframes fadeInBg {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.fade-out {
+    opacity: 0;
+    animation-name: fadeOutBg;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: .3s;
+}
+@keyframes fadeOutBg {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
