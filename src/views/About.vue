@@ -3,6 +3,7 @@
     <h2>Sticky Notes</h2>
     <br>
     <h3>Code Owner: Stamatis Deliyannis</h3>
+    <h5>Original Artwork: Stamatis Deliyannis</h5>
     <p>stamatis.deliyannis@gmail.com</p>
     <a href="https://github.com/StamatisDeli">My GitHub Page</a>
     <br>

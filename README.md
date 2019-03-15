@@ -1,6 +1,12 @@
 # sticky-notes-v2
+## An app managing personal notes
+### Comments about the creation of this app:
+I used Vue - Vuex, Axios and Firebase, and created original artwork with Abode Illustrator. The theme is 80's style and the UI is minimalistic.
+
+I used Vuex's namespacing which eliminates the need for separate file for variables, and made use of global components, navigation guards and Vue's transitions.
 
 ## Project setup
+For a local Version: Download the repo and run:
 ```
 npm install
 ```
@@ -13,7 +19,6 @@ npm run serve
 ### Compiles and minifies for production
 ```
 npm run build
-```
 
 ### Run your tests
 ```
