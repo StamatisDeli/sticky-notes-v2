@@ -62,7 +62,6 @@ export default {
 .menu{
     display: block;
     position: fixed;
-    /* background-color: rgba(0, 0, 0, 0.3); */
     top: 0;
     left: 0;
     z-index: 20;
@@ -100,70 +99,5 @@ export default {
 }
 .list-group>li{
     cursor:pointer;
-}
-/* SLIDE IN OUT */
-.slide-in {
-    left: -100%;
-    animation-name: slideIn;
-    animation-iteration-count: 1;
-    animation-timing-function: ease-in-out;
-    animation-duration: .3s;
-    animation-fill-mode: forwards;
-}
-@keyframes slideIn {
-    100% {
-        left: 0;
-    }
-}
-.slide-out {
-    left: 0;
-    animation-name: slideOut;
-    animation-iteration-count: 1;
-    animation-timing-function: ease-out;
-    animation-duration: .3s;
-    animation-fill-mode: both;
-}
-@keyframes slideOut {
-    100% {
-        left: -100%;
-    }
-}
-/* FADE IN OUT */
-.fade-in {
-    opacity: 1;
-    animation-name: fadeInBg;
-    animation-iteration-count: 1;
-    animation-timing-function: ease-in;
-    animation-duration: .3s;
-}
-@keyframes fadeInBg {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-.fade-out {
-    opacity: 0;
-    animation-name: fadeOutBg;
-    animation-iteration-count: 1;
-    animation-timing-function: ease-in;
-    animation-duration: .3s;
-}
-@keyframes fadeOutBg {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
 }
 </style>
