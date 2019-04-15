@@ -11,8 +11,8 @@
       <img class="logo-small-app" src="@/assets/logo-small.svg" alt="logo">
 
       <div class="user-container">
-        <p v-show="auth" > {{ name() }} </p>
-        <router-link to="/login" tag="p" v-show="!auth">Login</router-link>
+        <p v-if="auth" > {{ name() }} </p>
+        <router-link to="/login" tag="p" v-else >Login</router-link>
       </div>
       
       <transition name="slide-menu" mode="in-out">

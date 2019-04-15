@@ -130,6 +130,7 @@ const actions = {
     if (now > expirationDate) {
       commit("CLEAR_AUTH_DATA");
       dispatch('logout')
+      localStorage.clear();
     }
 
     commit("AUTH_USER", {
